@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+  <meta charset="UTF-8">
+  <title>New Client</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/client}" th:object="${client}">
+
+  <label for="client_first_name"> client first name: </label>
+  <input type="text" th:field="${client.first_name}" id="client_first_name"/>
+   <br/>
+  <label for="client_last_name"> client last name: </label>
+  <input type="text" th:field="${client.last_name}" id="client_last_name"/>
+   <br/>
+  <label for="client_tax_code"> client tax code: </label>
+  <input type="text" th:field="${client.tax_code}" id="client_tax_code"/>
+  <br/>
+  <label for="client_email"> client email: </label>
+  <input type="text" th:field="${client.email}" id="client_email"/>
+  <br/>
+  <label for="client_address"> client address: </label>
+  <input type="text" th:field="${client.address}" id="client_address"/>
+  <br/>
+  <label for="client_phone"> client phone: </label>
+  <input type="text" th:field="${client.phone}" id="client_phone"/>
+  <br/>
+  <div>
+    <label for="status"> Status:        </label>
+    <select id="status" required th:field="${client.status}">
+      <option th:each="status : ${statuses}"
+              th:value="${status}"
+              th:text="${status}">
+      </option>
+    </select>
+  </div>
+  <br/>
+  <div>
+    <label for="manager">Manager:
+      <select id="manager" required th:field="*{manager_id}">
+        <option th:each="manager : ${managers}"
+                th:value="${manager.getId()}"
+                th:text="${manager.getLast_name()}">
+        </option>
+      </select>
+    </label>
+  </div>
+  <br/>
+
+  <input type="submit" value=" Save "/>
+
+</form>
+
+<div th:if="${errors}">
+  <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+
+<br>
+<br>
+<a th:href = "@{/client/clients}"> Back to Clients List</a>
+
+</body>
+</html>

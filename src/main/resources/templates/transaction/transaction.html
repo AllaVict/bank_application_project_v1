@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction </title>
+</head>
+<body>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th> Description</th>
+            <th> content</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td> Client: </td>
+            <td><span th:text="${transaction.getBankAccount().getClient().getLast_name()}"> Client </span></td>
+        </tr>
+        <tr>
+            <td> effective_date</td>
+            <td><span th:text="${transaction.effective_date}"> effective_date </span></td>
+        </tr>
+        <tr>
+            <td> transaction_date</td>
+            <td><span th:text="${transaction.transaction_date}"> transaction_date </span></td>
+        </tr>
+        <tr>
+            <td> effective_date</td>
+            <td><span th:text="${transaction.effective_date}"> effective_date </span></td>
+        </tr>
+        <tr>
+            <td> sender</td>
+            <td><span th:text="${transaction.sender}"> sender </span></td>
+        </tr>
+        <tr>
+            <td> source_account</td>
+            <td><span th:text="${transaction.source_account}"> source_account </span></td>
+        </tr>
+        <tr>
+            <td> beneficiary</td>
+            <td><span th:text="${transaction.beneficiary}"> beneficiary </span></td>
+        </tr>
+        <tr>
+            <td> destination_account</td>
+            <td><span th:text="${transaction.destination_account}"> destination_account </span></td>
+        </tr>
+        <tr>
+            <td> transaction_amount</td>
+            <td><span th:text="${transaction.transaction_amount}"> transaction_amount </span></td>
+        </tr>
+        <tr>
+            <td> description</td>
+            <td><span th:text="${transaction.description}"> description </span></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<a th:href="@{/transaction/transactions}"> Back to Transactions List</a>
+<br>
+<form th:method="GET"
+      th:action="@{/transaction/update/{id}(id=${transaction.getId()})}">
+    <input type="submit" value="Update"/>
+</form>
+<br>
+<form th:method="GET"
+      th:action="@{/transaction/delete/{id}(id=${transaction.getId()})}">
+    <button type="submit"> Remove</button>
+</form>
+<br>
+<div th:if="${errors}">
+    <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+
+</body>
+</html>
+
+

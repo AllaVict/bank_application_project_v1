@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients </title>
+</head>
+<body>
+Clients
+
+<br>
+<br>
+<a href="/client/new_client">Add Client</a>
+<br>
+<br>
+
+<table>
+    <thead>
+    <tr>
+        <th> id </th>
+        <th> first name </th>
+        <th> last name </th>
+        <th> tax_code </th>
+        <th> email </th>
+        <th> phone </th>
+        <th> created at </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="client : ${clients}">
+        <td><span th:text="${client.id}"> id  </span></td>
+        <td><span th:text="${client.first_name}"> first name </span></td>
+        <td><span th:text="${client.last_name}"> last name </span></td>
+        <td><span th:text="${client.tax_code}"> tax_code  </span></td>
+        <td><span th:text="${client.email}"> email </span></td>
+        <td><span th:text="${client.address}"> address </span></td>
+        <td><span th:text="${client.phone}"> phone </span></td>
+        <td><span th:text="${client.status}"> status </span></td>
+        <td><span th:text="${client.manager.getLast_name()}"> manager </span></td>
+        <td><span th:text="${client.created_at}"> created at </span></td>
+        <td><span th:text="${client.updated_at}"> updated at </span></td>
+
+        <td>
+            <a th:href="@{'/client/clients/' + ${client.getId()}}"> Details </a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{/client/update/{id}(id=${client.getId()})}">Update</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{/client/delete/{id}(id=${client.getId()})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

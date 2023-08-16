@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+</head>
+<body>
+
+Transactions
+<table>
+    <thead>
+    <tr>
+        <th> id </th>
+        <th> sender </th>
+        <th> source_account </th>
+        <th> beneficiary </th>
+        <th> destination_account </th>
+        <th> description </th>
+        <th> transaction_amount </th>
+        <th> transaction_date </th>
+        <th> effective_date </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="transaction : ${transactions}">
+<!--        <td><span th:text="${transaction.id}"> id  </span></td>-->
+        <td><span th:text="${transaction.getBankAccount().getClient().getLast_name()}"> Bank Account Client </span></td>
+        <td><span th:text="${transaction.transaction_date}"> transaction_date </span></td>
+        <td><span th:text="${transaction.effective_date}"> effective_date </span></td>
+        <td><span th:text="${transaction.sender}"> sender </span></td>
+        <td><span th:text="${transaction.source_account}"> source_account </span></td>
+        <td><span th:text="${transaction.beneficiary}"> beneficiary  </span></td>
+        <td><span th:text="${transaction.destination_account}"> destination_account </span></td>
+        <td><span th:text="${transaction.description}"> description </span></td>
+        <td><span th:text="${transaction.transaction_amount}"> transaction_amount </span></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

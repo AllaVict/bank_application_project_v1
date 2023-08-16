@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th> Description</th>
+            <th> content</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>product name</td>
+            <td><span th:text="${product.product_name}"> product name </span></td>
+        </tr>
+        <tr>
+            <td>currency code</td>
+            <td><span th:text="${product.currency_code}"> currency code </span></td>
+        </tr>
+        <tr>
+            <td>interest rate</td>
+            <td><span th:text="${product.interest_rate}"> interest rate</span></td>
+        </tr>
+        <tr>
+            <td>credit limit</td>
+            <td><span th:text="${product.credit_limit}"> credit limit </span></td>
+        </tr>
+        <tr>
+            <td>manager</td>
+            <td><span th:text="${manager}"> manager </span></td>
+        </tr>
+        <tr>
+            <td>product_status</td>
+            <td><span th:text="${product.product_status}"> status </span></td>
+        </tr>
+        <tr>
+            <td>created at</td>
+            <td><span th:text="${product.created_at}"> created at </span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<a th:href="@{/product/products}"> Back to Products List</a>
+<br>
+<form th:method="GET"
+      th:action="@{/product/update/{id}(id=${product.getId()})}">
+    <input type="submit" value="Update"/>
+</form>
+<br>
+<form th:method="GET"
+      th:action="@{/product/delete/{id}(id=${product.getId()})}">
+    <button type="submit"> Remove</button>
+</form>
+<br>
+<div th:if="${errors}">
+  <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+
+</body>
+</html>
+
+

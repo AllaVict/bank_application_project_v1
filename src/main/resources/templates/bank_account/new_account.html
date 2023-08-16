@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+  <meta charset="UTF-8">
+  <title>New Bank account</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/bank_account}" th:object="${account}">
+
+  <label for="account_name"> bank account name: </label>
+  <input type="text" th:field="${account.account_name}" id="account_name"/>
+   <br/>
+  <label for="account_number"> bank account number: </label>
+  <input type="text" th:field="${account.account_number}" id="account_number"/>
+  <br/>
+  <div>
+    <label for="currency_code"> Currency code:        </label>
+    <select id="currency_code" required th:field="*{currency_code}">
+      <option th:each="currency_code : ${currency_codes}"
+              th:value="${currency_code}"
+              th:text="${currency_code}">
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="type"> bank account type:        </label>
+    <select id="type" required th:field="*{account_type}">
+      <option th:each="type : ${types}"
+              th:value="${type}"
+              th:text="${type}">
+      </option>
+    </select>
+  </div>
+  <br/>
+
+  <div>
+    <label for="status"> Status:        </label>
+    <select id="status" required th:field="${account.status}">
+      <option th:each="status : ${statuses}"
+              th:value="${status}"
+              th:text="${status}">
+      </option>
+    </select>
+  </div>
+  <br/>
+  <div>
+    <label for="client">Client:
+      <select id="client" required th:field="*{client_id}">
+        <option th:each="client : ${clients}"
+                th:value="${client.getId()}"
+                th:text="${client.getLast_name()}">
+        </option>
+      </select>
+    </label>
+  </div>
+  <br/>
+
+  <input type="submit" value=" Save "/>
+
+</form>
+
+<div th:if="${errors}">
+  <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+
+<br>
+<br>
+<a th:href="@{/bank_account/bank_accounts}"> Back to Bank account List</a>
+</body>
+</html>
