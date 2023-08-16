@@ -48,9 +48,6 @@ public class TransactionController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The transaction id  doesn`t found"));
     }
 
-    //transactions -- <a href="/transaction/new_transaction">Add transaction</a>
-    // @GetMapping("/new_transaction") return "transaction/new_transaction";
-    // ++++ works
     @GetMapping("/new_transaction")// /transaction/new_transaction --  part of url adress
     public String formToCreateTransaction(Model model,
                                      @ModelAttribute("transaction") TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
@@ -60,9 +57,7 @@ public class TransactionController {
         return "transaction/new_transaction";//folder name in templates
     }
 
-    //client/new_client -- th:method="POST" th:action="@{/transaction}" th:object="${transaction}"
-    //@PostMapping() return "redirect:/transaction/transactions";
-    //++++ works
+
     @PostMapping()
     public String createTransaction(@ModelAttribute("transaction") TransactionCreateUpdateDTO transactionCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -78,9 +73,7 @@ public class TransactionController {
         return "redirect:/transaction/transactions/" + transactionService.create(transactionCreateUpdateDTO).getId();
     }
 
-    //client -- th:method="GET" th:action="@{/client/{id}/update(id=${client.getId()})}"
-    //@GetMapping("/{id}/edit")  return "admin/update_client";
-    //++++ works
+
     @GetMapping("update/{id}")
     public String updateTransactionForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("transaction",
@@ -91,9 +84,6 @@ public class TransactionController {
         return "transaction/update_transaction";
     }
 
-    //th:method="PATCH" th:action="@{/transaction/{id}(id=${transaction.getId()})}"
-    // @PatchMapping("/{id}") return "redirect:/transaction/transactions";
-    // ++++ works
     @PatchMapping("/{id}") // /transaction/{id} --  part of url adress
     public String updateTransaction(@ModelAttribute("client") TransactionCreateUpdateDTO transactionCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -111,9 +101,7 @@ public class TransactionController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
    }
 
-    //th:method="DELETE" th:action="@{/transaction/{id}(id=${transaction.getId()})}">
-    //@DeleteMapping("/{id}") @PathVariable("id") return "redirect:/transaction/transactions";
-    //+++works
+
     @GetMapping("/delete/{id}")// /transaction/delete/{id} --  part of url adress
     public String deleteTransaction(@PathVariable("id") Long id) {
         if (!transactionService.delete(id)) {

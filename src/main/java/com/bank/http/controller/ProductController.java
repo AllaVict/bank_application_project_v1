@@ -26,14 +26,14 @@ public class ProductController {
     private final ManagerService managerService;
     private final ProductReadToUpdateConverter productReadToUpdateConverter;
 
-    // ++++ works
+
     @GetMapping("/products")// /admin/products --  part of url adress
     public String findAllProducts(Model model) {
         model.addAttribute("products", productService.findAll());
         return "product/products";//folder name in templates
     }
 
-    // ++++ works
+
     @GetMapping("/products/{id}")// product/products/{id} -- part of url adress
     public String findByIdProduct(@PathVariable("id") Long id, Model model) {
         return productService.findById(id)
@@ -46,9 +46,7 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The product id doesn`t found"));
     }
 
-    //products -- <a href="/admin/new_product">Add Manager</a>
-    // @GetMapping("/new_product") return "admin/new_product";
-    // ++++ works
+
     @GetMapping("/new_product")// /admin/new_product --  part of url adress
     public String formToCreateProduct(Model model,
                                       @ModelAttribute("product") ProductCreateUpdateDTO productCreateUpdateDTO) {
@@ -59,9 +57,7 @@ public class ProductController {
         return "product/new_product";//folder name in templates
     }
 
-    //manager/update_product -- th:method="POST" th:action="@{/admin}" th:object="${manager}"
-    //@PostMapping() return "redirect:/admin/managers";
-    //++++ works
+
     @PostMapping()
     public String createProduct(@ModelAttribute("product") @Validated ProductCreateUpdateDTO productCreateUpdateDTO,
                                 BindingResult bindingResult,
@@ -74,14 +70,11 @@ public class ProductController {
             model.addAttribute("currency_codes", CurrencyCode.values());
             return "redirect:/product/new_product";
         }
-//        ProductReadDTO productReadDTO = productService.create(productCreateDTO);
-//        return "redirect:/product/products/" + productReadDTO.getId();
+
         return "redirect:/product/products/" + productService.create(productCreateUpdateDTO).getId();
     }
 
-    //  <a th:href="@{/product/update/{id}(id=${product.id})}">Update</a>
-    //@GetMapping("/{id}/edit")  return "admin/update_product";
-    //++++ works
+
     @GetMapping("update/{id}")
     public String formToUpdateProduct(Model model, @PathVariable("id") Long id) {
         model.addAttribute("product",
@@ -93,8 +86,7 @@ public class ProductController {
         return "product/update_product";
     }
 
-    //th:method="PATCH" th:action="@{/product/{id}(id=${product.getId()})}"
-    // @PatchMapping("/{id}") return "redirect:/product/products";
+
     @PatchMapping("/{id}") // /admin/{id} --  part of url adress
     public String updateProduct(@ModelAttribute("product") @Validated ProductCreateUpdateDTO productCreateUpdateDTO,
                                 BindingResult bindingResult,
@@ -113,8 +105,7 @@ public class ProductController {
                 .map(url -> "redirect:/product/products")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
-    //<a th:href="@{/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
-    //@GetMapping("/delete/{id}") @PathVariable("id") return "redirect:/admin/managers";
+
     @GetMapping("/delete/{id}")// /delete/{id} --  part of url adress
     public String deleteProduct(@PathVariable("id") Long id) {
         if (!productService.delete(id)) {

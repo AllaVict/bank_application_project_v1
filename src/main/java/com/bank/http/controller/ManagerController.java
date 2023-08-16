@@ -19,14 +19,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ManagerController {
     private final ManagerService managerService;
 
-    // ++++ works
+
     @GetMapping("/managers") // /manager/managers --  part of url adress
     public String findAllManagers(Model model) {
         model.addAttribute("managers", managerService.findAll());
         return "manager/managers"; //folder name in templates
     }
 
-    // ++++ works
+
     @GetMapping("/managers/{id}")// manager/managers/{id} -- part of url adress
     public String findByIdManager(@PathVariable("id") Long id, Model model) {
         return managerService.findById(id)
@@ -38,9 +38,6 @@ public class ManagerController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The manager id  doesn`t found"));
     }
 
-    //managers -- <a href="/admin/new_manager">Add Manager</a>
-    // @GetMapping("/new_manager") return "admin/createManager";
-    // ++++ works
     @GetMapping("/new_manager")// /manager/new_manager --  part of url adress
     public String formToCreateManager(Model model,
                                       @ModelAttribute("manager") ManagerCreateUpdateDTO managerCreateUpdateDTO) {
@@ -49,9 +46,7 @@ public class ManagerController {
         return "manager/new_manager";//folder name in templates
     }
 
-    //admin/createManager -- th:method="POST" th:action="@{/admin}" th:object="${manager}"
-    //@PostMapping() return "redirect:/admin/managers";
-    //++++ works
+
     @PostMapping()
     public String createManager(@ModelAttribute("manager") ManagerCreateUpdateDTO managerCreateUpdateDTO,
                                 BindingResult bindingResult,
@@ -63,13 +58,11 @@ public class ManagerController {
             model.addAttribute("statuses", ManagerStatus.values());
             return "redirect:/manager/new_manager";
         }
-       // ManagerReadDTO createdManager =managerService.create(managerCreateUpdateDTO);
+
         return "redirect:/manager/managers/" + managerService.create(managerCreateUpdateDTO).getId();
     }
 
-    //manager -- th:method="GET" th:action="@{/admin/{id}/update(id=${manager.getId()})}"
-    //@GetMapping("/{id}/edit")  return "admin/editManager";
-    //++++ works
+
     @GetMapping("update/{id}")
     public String updateManagerForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("manager",
@@ -78,9 +71,7 @@ public class ManagerController {
         return "manager/update_manager";
     }
 
-    //th:method="PATCH" th:action="@{/admin/{id}(id=${manager.getId()})}"
-    // @PatchMapping("/{id}") return "redirect:/admin/managers";
-    // ++++ works
+
     @PatchMapping("/{id}") // /admin/{id} --  part of url adress
     public String updateManager(@ModelAttribute("manager") ManagerCreateUpdateDTO managerCreateUpdateDTO,
                                 BindingResult bindingResult,
@@ -98,9 +89,7 @@ public class ManagerController {
 
     }
 
-    //th:method="DELETE" th:action="@{/admin/{id}(id=${manager.getId()})}">
-    //@DeleteMapping("/{id}") @PathVariable("id") return "redirect:/admin/managers";
-    //+++works
+
     @GetMapping("/delete/{id}")// /manager/delete/{id} --  part of url adress
     public String deleteManager(@PathVariable("id") Long id) {
         if (!managerService.delete(id)) {

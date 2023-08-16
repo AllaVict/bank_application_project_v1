@@ -26,14 +26,14 @@ public class BankAccountController {
     private final ClientService clientService;
     private final BankAccountReadToUpdateConverter bankAccountReadToUpdateConverter;
 
-    // ++++ works
+
     @GetMapping("/bank_accounts") // /account/accounts --  part of url adress
     public String findAllAccounts(Model model) {
         model.addAttribute("accounts", bankAccountService.findAll());
         return "bank_account/bank_accounts"; //folder name in templates
     }
 
-    // ++++ works
+
     @GetMapping("/bank_accounts/{id}")// bank_account/bank_accounts/{id} -- part of url adress
     public String findByIdBankAccount(@PathVariable("id") Long id, Model model) {
         return bankAccountService.findById(id)
@@ -47,9 +47,7 @@ public class BankAccountController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The bank account id  doesn`t found"));
     }
 
-    //bank_accounts -- <a href="/bank_account/new_account">Add bank account</a>
-    // @GetMapping("/new_account") return "bank_account/new_account";
-    // ++++ works
+
     @GetMapping("/new_account")// bank_account/new_account --  part of url adress
     public String formToCreateBankAccount(Model model,
                                      @ModelAttribute("account") BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO) {
@@ -61,9 +59,7 @@ public class BankAccountController {
         return "bank_account/new_account";//folder name in templates
     }
 
-    //bank_account/new_account -- th:method="POST" th:action="@{/bank_account}" th:object="${account}"
-    //@PostMapping() return "redirect:/bank_account/bank_accounts";
-    //++++ works
+
     @PostMapping()
     public String createBankAccount(@ModelAttribute("account") BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -81,9 +77,7 @@ public class BankAccountController {
         return "redirect:/bank_account/bank_accounts/" + bankAccountService.create(bankAccountCreateUpdateDTO).getId();
     }
 
-    //account -- th:method="GET" th:action="@{/bank_account/{id}/update(id=${account.getId()})}"
-    //@GetMapping("update/{id}")  return "bank_account/update_account";
-    //++++ works
+
     @GetMapping("update/{id}")
     public String updateBankAccountForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("account",
@@ -95,9 +89,7 @@ public class BankAccountController {
         return "bank_account/update_account";
     }
 
-    //th:method="PATCH" th:action="@{/bank_account/{id}(id=${account.getId()})}"
-    // @PatchMapping("/{id}") return "redirect:/bank_account/bank_accounts";
-    // ++++ works
+
     @PatchMapping("/{id}") // /bank_account/{id} --  part of url adress
     public String updateBankAccount(@ModelAttribute("client") BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -118,9 +110,6 @@ public class BankAccountController {
 
     }
 
-    //th:method="DELETE" th:action="@{/bank_account/{id}(id=${account.getId()})}">
-    //@DeleteMapping("/{id}") @PathVariable("id") return "redirect:/bank_account/bank_accounts";
-    //+++works
     @GetMapping("/delete/{id}")// /bank_account/delete/{id} --  part of url adress
     public String deleteBankAccount(@PathVariable("id") Long id) {
         if (!bankAccountService.delete(id)) {

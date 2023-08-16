@@ -24,14 +24,14 @@ public class ClientController {
     private final ManagerService managerService;
     private final ClientReadToUpdateConverter clientReadToUpdateConverter;
 
-    // ++++ works
+
     @GetMapping("/clients")// /client/clients --  part of url adress
     public String findAllClients(Model model) {
         model.addAttribute("clients", clientService.findAll());
         return "client/clients";//folder name in templates
     }
 
-    // ++++ works
+
     @GetMapping("/clients/{id}")// client/clients/{id} -- part of url adress
     public String findByIdClient(@PathVariable("id") Long id, Model model) {
         return clientService.findById(id)
@@ -45,9 +45,7 @@ public class ClientController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The client id  doesn`t found"));
     }
 
-    //clients -- <a href="/client/new_client">Add client</a>
-    // @GetMapping("/new_client") return "client/new_client";
-    // ++++ works
+
     @GetMapping("/new_client")// /client/new_client --  part of url adress
     public String formToCreateClient(Model model,
                                      @ModelAttribute("client") ClientCreateUpdateDTO clientCreateUpdateDTO) {
@@ -57,9 +55,7 @@ public class ClientController {
         return "client/new_client";//folder name in templates
     }
 
-    //client/new_client -- th:method="POST" th:action="@{/client}" th:object="${client}"
-    //@PostMapping() return "redirect:/client/clients";
-    //++++ works
+
     @PostMapping()
     public String createClient(@ModelAttribute("client") ClientCreateUpdateDTO clientCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -75,9 +71,7 @@ public class ClientController {
         return "redirect:/client/clients/" + clientService.create(clientCreateUpdateDTO).getId();
     }
 
-    //client -- th:method="GET" th:action="@{/client/{id}/update(id=${client.getId()})}"
-    //@GetMapping("/{id}/edit")  return "admin/update_client";
-    //++++ works
+
     @GetMapping("update/{id}")
     public String updateClientForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("client",
@@ -87,9 +81,6 @@ public class ClientController {
         return "client/update_client";
     }
 
-    //th:method="PATCH" th:action="@{/client/{id}(id=${client.getId()})}"
-    // @PatchMapping("/{id}") return "redirect:/client/clients";
-    // ++++ works
     @PatchMapping("/{id}") // /admin/{id} --  part of url adress
     public String updateClient(@ModelAttribute("client") ClientCreateUpdateDTO clientCreateUpdateDTO,
                                BindingResult bindingResult,
@@ -108,9 +99,7 @@ public class ClientController {
 
     }
 
-    //th:method="DELETE" th:action="@{/client/{id}(id=${client.getId()})}">
-    //@DeleteMapping("/{id}") @PathVariable("id") return "redirect:/client/clients";
-    //+++works
+
     @GetMapping("/delete/{id}")// /client/delete/{id} --  part of url adress
     public String deleteClient(@PathVariable("id") Long id) {
         if (!clientService.delete(id)) {
