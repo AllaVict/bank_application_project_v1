@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank account </title>
+</head>
+<body>
+Bank account
+
+<br>
+<br>
+<a href="/bankAccount/newAccount">Add Bank account</a>
+<br>
+<br>
+
+<table>
+  <thead>
+  <tr>
+    <th> Id </th>
+    <th> Client </th>
+    <th> Account name </th>
+    <th> Account number </th>
+    <th> Account type </th>
+    <th> Balance </th>
+    <th> Currency code </th>
+    <th> Status </th>
+    <th> Created at </th>
+    <th> Updated at </th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr th:each="account : ${accounts}">
+    <td><span th:text="${account.id}"> id  </span></td>
+    <td><span th:text="${account.client.getLastName()}"> Client </span></td>
+    <td><span th:text="${account.getAccountName}"> Account name </span></td>
+    <td><span th:text="${account.getAccountNumber}"> Account number </span></td>
+    <td><span th:text="${account.getAccountType}"> Account type  </span></td>
+    <td><span th:text="${account.balance}"> Balance </span></td>
+    <td><span th:text="${account.getCurrencyCode}"> Currency code </span></td>
+    <td><span th:text="${account.status}"> Account status  </span></td>
+    <td>  <span th:text="${#temporals.format(account.getCreatedAt(),'yyyy-MM-dd HH:mm')}">Created at</span></td>
+    <td>  <span th:text="${#temporals.format(account.getUpdatedAt(),'yyyy-MM-dd HH:mm')}">Updated at</span></td>
+
+    <td>
+      <a th:href="@{'/bankAccount/bankAccounts/' + ${account.getId()}}"> Details </a>
+      &nbsp;&nbsp;&nbsp;
+      <a th:href="@{/bankAccount/update/{id}(id=${account.getId()})}">Update</a>
+      &nbsp;&nbsp;&nbsp;
+      <a th:href="@{/bankAccount/delete/{id}(id=${account.getId()})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

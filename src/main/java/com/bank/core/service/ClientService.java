@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class ClientService {
     // clientReadConverter  client -> clientReadDTO
     @Transactional
     public ClientReadDTO create(ClientCreateUpdateDTO clientCreateUpdateDTO) {
-        //clientRepository.save(clientCreateEditDTO);
+        clientCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         return Optional.of(clientCreateUpdateDTO)
                 .map(clientCreateUpdateConverter::convert)
                 // .map(client -> clientRepository.save(client))
@@ -60,7 +61,8 @@ public class ClientService {
         // .map(Client ->ClientRepository.saveAndFlush(ClientCreateEditDTO));
         Optional<Client> clientForUpdate = Optional.ofNullable(clientRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Client not found")));
-        clientCreateUpdateDTO.setCreated_at(clientForUpdate.get().getCreated_at());
+        clientCreateUpdateDTO.setCreatedAt(clientForUpdate.get().getCreatedAt());
+        clientCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
         return clientRepository.findById(id) // findById(ID id) return Optional<T>
                 // convert(clientCreateUpdateDTO, client) -- copy(fromClientCreateUpdateDTO, toClient);
                 .map(client -> clientCreateUpdateConverter.convert(clientCreateUpdateDTO, client))

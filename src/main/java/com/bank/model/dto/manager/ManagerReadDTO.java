@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ManagerReadDTO {
     Long id;
-    String first_name;
-    String last_name;
-    ManagerStatus manager_status;
+    String firstName;
+    String lastName;
+    ManagerStatus managerStatus;
     String description;
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
 
 }
 

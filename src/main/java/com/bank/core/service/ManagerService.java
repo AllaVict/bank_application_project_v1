@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class ManagerService {
     // managerReadConverter  Manager -> ManagerReadDTO
     @Transactional
     public ManagerReadDTO create(ManagerCreateUpdateDTO managerCreateUpdateDTO) {
-        //managerRepository.save(managerCreateEditDTO);
+        managerCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         return Optional.of(managerCreateUpdateDTO)
                 .map(managerCreateUpdateConverter::convert)
                 //.map(manager -> manager.setCreated_at(LocalDateTime.now()) )
@@ -61,7 +62,7 @@ public class ManagerService {
         // .map(manager ->managerRepository.saveAndFlush(managerCreateEditDTO));
         Optional<Manager> managerForUpdate = Optional.ofNullable(managerRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Manager not found")));
-        managerCreateUpdateDTO.setCreated_at(managerForUpdate.get().getCreated_at());
+        managerCreateUpdateDTO.setCreatedAt(managerForUpdate.get().getCreatedAt());
         return managerRepository.findById(id) // findById(ID id) return Optional<T>
          // convert(managerCreateUpdateDTO, manager) -- copy(fromManagerCreateUpdateDTO, toManager);
         .map(manager -> managerCreateUpdateConverter.convert(managerCreateUpdateDTO, manager))

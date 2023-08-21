@@ -32,15 +32,15 @@ public class BankAccountCreateUpdateConverter implements Converter<BankAccountCr
     }
     private void copy(BankAccountCreateUpdateDTO object, BankAccount bankAccount) {
         bankAccount.setId(object.getId());
-        bankAccount.setClient( getClient(object.getClient_id())  );
-        bankAccount.setAccount_name(object.getAccount_name());
-        bankAccount.setAccount_number(object.getAccount_number());
-        bankAccount.setAccount_type(object.getAccount_type());
+        bankAccount.setClient( getClient(object.getClientId())  );
+        bankAccount.setAccountName(object.getAccountName());
+        bankAccount.setAccountNumber(object.getAccountNumber());
+        bankAccount.setAccountType(object.getBankAccountType());
         bankAccount.setStatus(object.getStatus());
         bankAccount.setBalance(object.getBalance());
-        bankAccount.setCurrency_code(object.getCurrency_code());
-        bankAccount.setCreated_at(object.getCreated_at());
-        bankAccount.setUpdated_at(object.getUpdated_at());
+        bankAccount.setCurrencyCode(object.getCurrencyCode());
+        bankAccount.setCreatedAt(object.getCreatedAt());
+        bankAccount.setUpdatedAt(object.getUpdatedAt());
     }
 
     public Client getClient(Long clientId) {

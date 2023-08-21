@@ -12,53 +12,47 @@
         <thead>
         <tr>
             <th> Description</th>
-            <th> content</th>
+            <th> Content</th>
         </tr>
         </thead>
         <tbody>
 
         <tr>
             <td> Client: </td>
-            <td><span th:text="${transaction.getBankAccount().getClient().getLast_name()}"> Client </span></td>
+            <td><span th:text="${transaction.getBankAccount().getClient().getLastName()}"> Client </span></td>
         </tr>
         <tr>
-            <td> effective_date</td>
-            <td><span th:text="${transaction.effective_date}"> effective_date </span></td>
+            <td> Transaction Date</td>
+            <td><span th:text="${transaction.getTransactionDate}"> Transaction Date </span></td>
         </tr>
         <tr>
-            <td> transaction_date</td>
-            <td><span th:text="${transaction.transaction_date}"> transaction_date </span></td>
+            <td> Effective Date</td>
+            <td><span th:text="${transaction.getEffectiveDate}"> Effective Date </span></td>
         </tr>
         <tr>
-            <td> effective_date</td>
-            <td><span th:text="${transaction.effective_date}"> effective_date </span></td>
+            <td> Sender</td>
+            <td><span th:text="${transaction.sender}"> Sender </span></td>
         </tr>
         <tr>
-            <td> sender</td>
-            <td><span th:text="${transaction.sender}"> sender </span></td>
+            <td> Source account</td>
+            <td><span th:text="${transaction.getSourceAccount}"> Source account </span></td>
         </tr>
         <tr>
-            <td> source_account</td>
-            <td><span th:text="${transaction.source_account}"> source_account </span></td>
+            <td> Beneficiary</td>
+            <td><span th:text="${transaction.beneficiary}"> Beneficiary </span></td>
         </tr>
         <tr>
-            <td> beneficiary</td>
-            <td><span th:text="${transaction.beneficiary}"> beneficiary </span></td>
+            <td> Destination Account</td>
+            <td><span th:text="${transaction.getDestinationAccount}"> Destination Account </span></td>
         </tr>
         <tr>
-            <td> destination_account</td>
-            <td><span th:text="${transaction.destination_account}"> destination_account </span></td>
-        </tr>
-        <tr>
-            <td> transaction_amount</td>
-            <td><span th:text="${transaction.transaction_amount}"> transaction_amount </span></td>
+            <td> Transaction amount</td>
+            <td><span th:text="${transaction.getTransactionAmount}"> Transaction amount </span></td>
         </tr>
         <tr>
             <td> description</td>
             <td><span th:text="${transaction.description}"> description </span></td>
         </tr>
-
-
         </tbody>
     </table>
 </div>

@@ -20,22 +20,22 @@ import java.time.LocalDateTime;
 public class ClientCreateUpdateDTO {
 
     Long id;
-    Long manager_id;
+    Long managerId;
 
     @Enumerated(EnumType.STRING)
     ClientStatus status;
 
     @NotEmpty(message = "Tax code does not empty")
     @Size(min = 1, max = 10, message = "Tax code must be from 1 to 10")
-    String tax_code;
+    String taxCode;
 
     @NotEmpty(message = "First name does not empty")
     @Size(min = 1, max = 50, message = "First name must be from 1 to 50")
-    String first_name;
+    String firstName;
 
     @NotEmpty(message = "Last name does not empty")
     @Size(min = 1, max = 50, message = "Last name must be from 1 to 50")
-    String last_name;
+    String lastName;
 
     @Email
     String email;
@@ -46,8 +46,8 @@ public class ClientCreateUpdateDTO {
     @NotEmpty(message = "Phone does not empty")
     String phone;
 
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 
 }

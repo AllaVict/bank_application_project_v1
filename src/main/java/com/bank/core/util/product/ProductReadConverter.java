@@ -25,13 +25,13 @@ public class ProductReadConverter implements Converter<Product, ProductReadDTO> 
         return new ProductReadDTO(
                 product.getId(),
                 manager,
-                product.getProduct_status(),
-                product.getProduct_name(),
-                product.getCurrency_code(),
-                product.getInterest_rate(),
-                product.getCredit_limit(),
-                product.getCreated_at(),
-                product.getUpdated_at()
+                product.getProductStatus(),
+                product.getProductName(),
+                product.getCurrencyCode(),
+                product.getInterestRate(),
+                product.getCreditLimit(),
+                product.getCreatedAt(),
+                product.getUpdatedAt()
 
         );
 

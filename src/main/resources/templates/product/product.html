@@ -12,38 +12,38 @@
         <thead>
         <tr>
             <th> Description</th>
-            <th> content</th>
+            <th> Content</th>
         </tr>
         </thead>
         <tbody>
 
         <tr>
-            <td>product name</td>
-            <td><span th:text="${product.product_name}"> product name </span></td>
+            <td>Product name</td>
+            <td><span th:text="${product.productName}"> Product name </span></td>
         </tr>
         <tr>
-            <td>currency code</td>
-            <td><span th:text="${product.currency_code}"> currency code </span></td>
+            <td>Currency code</td>
+            <td><span th:text="${product.getCurrencyCode}"> Currency code </span></td>
         </tr>
         <tr>
-            <td>interest rate</td>
-            <td><span th:text="${product.interest_rate}"> interest rate</span></td>
+            <td>Interest rate</td>
+            <td><span th:text="${product.getInterestRate}"> Interest rate</span></td>
         </tr>
         <tr>
-            <td>credit limit</td>
-            <td><span th:text="${product.credit_limit}"> credit limit </span></td>
+            <td>Credit limit</td>
+            <td><span th:text="${product.getCreditLimit}"> Credit limit </span></td>
         </tr>
         <tr>
-            <td>manager</td>
-            <td><span th:text="${manager}"> manager </span></td>
+            <td>Manager</td>
+            <td><span th:text="${manager}"> Manager </span></td>
         </tr>
         <tr>
-            <td>product_status</td>
-            <td><span th:text="${product.product_status}"> status </span></td>
+            <td>Product status</td>
+            <td><span th:text="${product.getProductStatus}"> Product status </span></td>
         </tr>
         <tr>
-            <td>created at</td>
-            <td><span th:text="${product.created_at}"> created at </span></td>
+            <td>Created at</td>
+            <td><span th:text="${product.getCreatedAt}"> Created at </span></td>
         </tr>
         </tbody>
     </table>

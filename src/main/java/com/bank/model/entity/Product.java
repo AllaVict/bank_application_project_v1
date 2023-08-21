@@ -27,24 +27,24 @@ public class Product {
     Manager manager;
 
     @Enumerated(EnumType.STRING)
-    ProductStatus product_status;
+    ProductStatus productStatus;
 
     @NotEmpty(message = "Product name does not empty")
     @Size(min = 3, max = 70, message = "Product name must be from 3 to 70")
-    String product_name;
+    String productName;
 
     @Enumerated(EnumType.STRING)
-    CurrencyCode currency_code;
+    CurrencyCode currencyCode;
 
     @Min(value=0, message = "Interest rate must be 0 or bigger then 0 ")
-    BigDecimal interest_rate;
+    BigDecimal interestRate;
 
     @Min(value=0, message = "Credit limit must be 0 or bigger then 0 ")
-    BigDecimal  credit_limit;
+    BigDecimal creditLimit;
 
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
 
-    LocalDateTime updated_at;
+    LocalDateTime updatedAt;
 
 
 }

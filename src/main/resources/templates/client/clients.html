@@ -5,40 +5,44 @@
     <title>Clients </title>
 </head>
 <body>
+<br>
 Clients
-
 <br>
 <br>
-<a href="/client/new_client">Add Client</a>
+<a href="/client/newClient">Add Client</a>
 <br>
 <br>
-
 <table>
     <thead>
     <tr>
-        <th> id </th>
-        <th> first name </th>
-        <th> last name </th>
-        <th> tax_code </th>
-        <th> email </th>
-        <th> phone </th>
-        <th> created at </th>
+        <th> Id </th>
+        <th> First name </th>
+        <th> Last name </th>
+        <th> Tax code </th>
+        <th> Email </th>
+        <th> Phone </th>
+        <th> Address </th>
+        <th> Status </th>
+        <th> Manager </th>
+        <th> Created at </th>
+        <th> Updated at </th>
     </tr>
     </thead>
     <tbody>
-
     <tr th:each="client : ${clients}">
-        <td><span th:text="${client.id}"> id  </span></td>
-        <td><span th:text="${client.first_name}"> first name </span></td>
-        <td><span th:text="${client.last_name}"> last name </span></td>
-        <td><span th:text="${client.tax_code}"> tax_code  </span></td>
-        <td><span th:text="${client.email}"> email </span></td>
-        <td><span th:text="${client.address}"> address </span></td>
-        <td><span th:text="${client.phone}"> phone </span></td>
-        <td><span th:text="${client.status}"> status </span></td>
-        <td><span th:text="${client.manager.getLast_name()}"> manager </span></td>
-        <td><span th:text="${client.created_at}"> created at </span></td>
-        <td><span th:text="${client.updated_at}"> updated at </span></td>
+        <td><span th:text="${client.id}"> Id  </span></td>
+        <td><span th:text="${client.getFirstName}"> First name </span></td>
+        <td><span th:text="${client.getLastName}"> Last name </span></td>
+        <td><span th:text="${client.getTaxCode}"> Tax code  </span></td>
+        <td><span th:text="${client.email}"> Email </span></td>
+        <td><span th:text="${client.address}"> Address </span></td>
+        <td><span th:text="${client.phone}"> Phone </span></td>
+        <td><span th:text="${client.status}"> Status </span></td>
+        <td><span th:text="${client.manager.getLastName()}"> Manager </span></td>
+<!--        <td><span th:text="${client.getCreatedAt}"> Created at </span></td>-->
+<!--        <td><span th:text="${client.getUpdatedAt}"> Updated at </span></td>-->
+        <td>  <span th:text="${#temporals.format(client.getCreatedAt(),'yyyy-MM-dd HH:mm')}">Created at</span></td>
+        <td>  <span th:text="${#temporals.format(client.getUpdatedAt(),'yyyy-MM-dd HH:mm')}">Updated at</span></td>
 
         <td>
             <a th:href="@{'/client/clients/' + ${client.getId()}}"> Details </a>
@@ -54,3 +58,6 @@ Clients
 
 </body>
 </html>
+
+
+

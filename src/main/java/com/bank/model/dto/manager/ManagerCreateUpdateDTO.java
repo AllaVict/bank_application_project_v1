@@ -1,38 +1,40 @@
 package com.bank.model.dto.manager;
 
 import com.bank.model.enums.ManagerStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/** @Value is the immutable variant of @Data ;
- all fields are made private and final by default, and setters are not generated.
- */
-//@Value
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ManagerCreateUpdateDTO {
 
     Long id;
 
-    @NotEmpty(message = "First name name does not empty")
-    @Size(min = 1, max = 50, message = "Product name must be from 1 to 50")
-    String first_name;
+    @NotEmpty(message = "First name does not empty")
+    @Size(min = 1, max = 50, message = "First name must be from 1 to 50")
+    String firstName;
 
-    @NotEmpty(message = "Last name name does not empty")
-    @Size(min = 1, max = 50, message = "Product name must be from 1 to 50")
-    String last_name;
+    @NotEmpty(message = "Last name does not empty")
+    @Size(min = 1, max = 50, message = "Last name must be from 1 to 50")
+    String lastName;
 
-    ManagerStatus manager_status;
+    @Enumerated(EnumType.STRING)
+    ManagerStatus managerStatus;
 
-    @NotEmpty(message = "Last name name does not empty")
-    @Size(min = 1, max = 255, message = "Product name must be from 1 to 255")
+    @NotEmpty(message = "Description does not empty")
+    @Size(min = 1, max = 255, message = "Description must be from 1 to 255")
     String description;
 
-    LocalDateTime created_at;
+
+    LocalDateTime createdAt;
 
 
 }

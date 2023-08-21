@@ -26,11 +26,11 @@ public class ManagerCreateUpdateConverter implements Converter<ManagerCreateUpda
 
     private void copy(ManagerCreateUpdateDTO object, Manager manager) {
         manager.setId(object.getId());
-        manager.setFirst_name(object.getFirst_name());
-        manager.setLast_name(object.getLast_name());
-        manager.setManager_status(object.getManager_status());
+        manager.setFirstName(object.getFirstName());
+        manager.setLastName(object.getLastName());
+        manager.setManagerStatus(object.getManagerStatus());
         manager.setDescription(object.getDescription());
-        manager.setCreated_at(object.getCreated_at());
+        manager.setCreatedAt(object.getCreatedAt());
 
     }
 

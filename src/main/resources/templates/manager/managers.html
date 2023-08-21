@@ -2,31 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>manager list</title>
+    <title>Managers list</title>
 </head>
 <body>
-managers list
-
+<br>
+Managers list
+<br>
+<br>
+<a href="/manager/newManager">Add Manager</a>
+<br>
+<br>
 <table>
     <thead>
     <tr>
-        <th> id </th>
-        <th> first name </th>
-        <th> last name </th>
-        <th> status </th>
-        <th> description </th>
-        <th> created at </th>
+        <th> Id </th>
+        <th> First name </th>
+        <th> Last name </th>
+        <th> Status </th>
+        <th> Description </th>
+        <th> Created at </th>
+        <th> Details Update Delete</th>
     </tr>
     </thead>
-
     <tbody>
     <tr th:each="manager : ${managers}">
         <td> <a th:href="@{'/manager/managers/' + ${manager.getId()}}" th:text="|${manager.getId()}|">Manager</a>
-        <td><span th:text="${manager.first_name}"> first name </span></td>
-        <td><span th:text="${manager.last_name}"> last name </span></td>
-        <td><span th:text="${manager.manager_status}"> status </span></td>
-        <td><span th:text="${manager.description}"> status </span></td>
-        <td><span th:text="${manager.created_at}"> Date created at </span></td>
+        <td><span th:text="${manager.getFirstName}"> First name </span></td>
+        <td><span th:text="${manager.getLastName}"> Last name </span></td>
+        <td><span th:text="${manager.getManagerStatus}"> Status </span></td>
+        <td><span th:text="${manager.description}"> Description </span></td>
+<!--        <td><span th:text="${manager.getCreatedAt}"> Created at </span></td>-->
+        <td>  <span th:text="${#temporals.format(manager.getCreatedAt(),'yyyy-MM-dd HH:mm')}">Created at</span></td>
 
         <td>
             <a th:href="@{'/manager/managers/' + ${manager.getId()}}"> Details </a>
@@ -39,20 +45,6 @@ managers list
     </tr>
     </tbody>
 </table>
-
-<br>
-
-<a href="/manager/new_manager">Add Manager</a>
-<!--<form action="/adm/new">-->
-<!--    <button type="submit">Add Manager </button>-->
-<!--</form>-->
-
-
-
-<!--<div th:each="manager : ${managers}">-->
-<!--    <a th:href="@{'/manager/' + ${manager.id}}" th:text="|${manager.id}. ${manager.getLast_name()}|">Manager</a>-->
-<!--</div>-->
-
 
 </body>
 </html>

@@ -19,20 +19,20 @@ import java.time.LocalDateTime;
 public class ProductCreateUpdateDTO {
 
     Long id;
-    Long manager_id;
-    ProductStatus product_status;
+    Long managerId;
+    ProductStatus productStatus;
     @NotEmpty(message = "Product name does not empty")
     @Size(min = 3, max = 70, message = "Product name must be from 3 to 70")
-    String product_name;
-    CurrencyCode currency_code;
+    String productName;
+    CurrencyCode currencyCode;
     @Min(value=0, message = "Interest rate must be 0 or bigger then 0 ")
-    BigDecimal interest_rate;
+    BigDecimal interestRate;
     @Min(value=0, message = "Credit limit must be 0 or bigger then 0 ")
-    BigDecimal credit_limit;
+    BigDecimal creditLimit;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    LocalDateTime created_at;
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime updated_at;
+    LocalDateTime createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+    LocalDateTime updatedAt;
 
 
 

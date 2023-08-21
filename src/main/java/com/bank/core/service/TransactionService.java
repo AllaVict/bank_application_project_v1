@@ -25,7 +25,6 @@ public class TransactionService {
     private final TransactionReadConverter transactionReadConverter;
     private final TransactionCreateUpdateConverter transactionCreateUpdateConverter;
 
-
     public List<TransactionReadDTO> findAll() {
         return transactionRepository.findAll().stream()
                 //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
@@ -45,6 +44,8 @@ public class TransactionService {
     //public static <T> Optional<T> of(T value) {  return new Optional<>(Objects.requireNonNull(value))}
     @Transactional
     public TransactionReadDTO create(TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        transactionCreateUpdateDTO.setAccountId(1L);
         return Optional.of(transactionCreateUpdateDTO)
                 .map(transactionCreateUpdateConverter::convert)
                 // .map(client -> clientRepository.save(client))
@@ -59,8 +60,10 @@ public class TransactionService {
         // .map(Transaction ->transactionRepository.saveAndFlush(transactionCreateUpdateDTO));
         Optional<Transaction> transactionForUpdate = Optional.ofNullable(transactionRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Transaction not found")));
-        transactionCreateUpdateDTO.setTransaction_date(transactionForUpdate.get().getTransaction_date());
-        transactionCreateUpdateDTO.setEffective_date(LocalDateTime.now());
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        transactionCreateUpdateDTO.setAccountId(1L);
+        transactionCreateUpdateDTO.setTransactionDate(transactionForUpdate.get().getTransactionDate());
+        transactionCreateUpdateDTO.setEffectiveDate(LocalDateTime.now());
         return transactionRepository.findById(id) // findById(ID id) return Optional<T>
                 // convert(TransactionCreateUpdateDTO, Transaction) -- copy(fromTransactionCreateUpdateDTO, toTransaction);
                 .map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))

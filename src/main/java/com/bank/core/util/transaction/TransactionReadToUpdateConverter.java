@@ -15,19 +15,19 @@ public class TransactionReadToUpdateConverter implements Converter<TransactionRe
         return new TransactionCreateUpdateDTO(
                 transactionReadDTO.getId(),
                 transactionReadDTO.getBankAccount().getId(),
-                transactionReadDTO.getProduct().getId(),
+                //transactionReadDTO.getProduct().getId(),
                 transactionReadDTO.getSender(),
-                transactionReadDTO.getSource_account(),
+                transactionReadDTO.getSourceAccount(),
                 transactionReadDTO.getBeneficiary(),
-                transactionReadDTO.getDestination_account(),
-                transactionReadDTO.getTransaction_amount(),
+                transactionReadDTO.getDestinationAccount(),
+                transactionReadDTO.getTransactionAmount(),
                 transactionReadDTO.getDescription(),
-                transactionReadDTO.getInterest_rate(),
-                transactionReadDTO.getTransaction_type(),
-                transactionReadDTO.getTransaction_status(),
-                transactionReadDTO.getTransaction_code(),
-                transactionReadDTO.getTransaction_date(),
-                transactionReadDTO.getEffective_date()
+                transactionReadDTO.getInterestRate(),
+                transactionReadDTO.getTransactionType(),
+                transactionReadDTO.getTransactionStatus(),
+                transactionReadDTO.getTransactionCode(),
+                transactionReadDTO.getTransactionDate(),
+                transactionReadDTO.getEffectiveDate()
 
         );
 

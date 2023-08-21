@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+    <meta charset="UTF-8">
+    <title>New Transaction</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/transaction}" th:object="${transaction}">
+    <div>
+        <label for="bankAccount">bank Account:
+            <select id="bankAccount" required th:field="*{accountId}">
+                <option th:each="bankAccount : ${bankAccounts}"
+                        th:value="${bankAccount.getId()}"
+                        th:text="${bankAccount.getAccountNumber()}">
+                </option>
+            </select>
+        </label>
+    </div>
+    <label for="sender"> Sender: </label>
+    <input type="text" th:field="${transaction.sender}" id="sender"/>
+    <br/>
+    <label for="sourceAccount"> Source account: </label>
+    <input type="text" th:field="${transaction.sourceAccount}" id="sourceAccount"/>
+    <br/>
+    <label for="beneficiary"> Beneficiary: </label>
+    <input type="text" th:field="${transaction.beneficiary}" id="beneficiary"/>
+    <br/>
+    <label for="destinationAccount"> Destination account: </label>
+    <input type="text" th:field="${transaction.destinationAccount}" id="destinationAccount"/>
+    <br/>
+    <label for="description"> Description: </label>
+    <input type="text" th:field="${transaction.description}" id="description"/>
+    <br/>
+    <label for="transactionAmount"> Transaction amount: </label>
+    <input type="text" th:field="${transaction.transactionAmount}" id="transactionAmount"/>
+    <br/>
+    <div>
+        <label for="transactionStatus"> Status:        </label>
+        <select id="transactionStatus" required th:field="*{transactionStatus}">
+            <option th:each="transactionStatus : ${statuses}"
+                    th:value="${transactionStatus}"
+                    th:text="${transactionStatus}">
+            </option>
+        </select>
+    </div>
+    <br/>
+    <br/>
+    <input type="submit" value=" Save "/>
+</form>
+<br>
+<a th:href = "@{/transaction/transactions}"> Back to transactions List</a>
+<br/>
+<div th:if="${errors}">
+    <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+</body>
+</html>

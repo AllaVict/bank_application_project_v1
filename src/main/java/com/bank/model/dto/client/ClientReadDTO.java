@@ -22,13 +22,13 @@ public class ClientReadDTO {
     Long id;
     ManagerReadDTO manager;
     ClientStatus status;
-    String tax_code;
-    String first_name;
-    String last_name;
+    String taxCode;
+    String firstName;
+    String lastName;
     String email;
     String address;
     String phone;
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 }

@@ -23,21 +23,23 @@ public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     Client client;
 
+//    @ManyToOne//(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "product_id")
+//    Product product;
+
     @NotEmpty(message = "Account name  does not empty")
     @Size(min = 1, max = 20, message = "Account name must be from 1 to 20")
-    String account_name;
-
+    String accountName;
     @NotEmpty(message = "Account number  does not empty")
     @Size(min = 1, max = 26, message = "Account number must be 26")
-    String account_number;
+    String accountNumber;
 
     @Enumerated(EnumType.STRING)
-    BankAccountType account_type;
+    BankAccountType accountType;
 
     @Enumerated(EnumType.STRING)
     BankAccountStatus status;
@@ -46,11 +48,11 @@ public class BankAccount {
     BigDecimal balance;
 
     @Enumerated(EnumType.STRING)
-    CurrencyCode currency_code;
+    CurrencyCode currencyCode;
 
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
     
-    LocalDateTime updated_at;
+    LocalDateTime updatedAt;
 
 
 }

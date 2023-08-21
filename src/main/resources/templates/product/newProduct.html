@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<head>
+  <meta charset="UTF-8">
+  <title>New product</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/product}" th:object="${product}">
+  <label for="ProductName"> Product name: </label>
+  <input type="text" th:field="${product.productName}" id="ProductName"/>
+  <div style="color:red" th:if="${#fields.hasErrors('ProductName')}" th:errors="${product.productName}">Product name Error</div>
+  <br/>
+  <label for="InterestRate">Interest rate : </label>
+  <input type="number" th:field="${product.interestRate}" id="InterestRate"/>
+  <div style="color:red" th:if="${#fields.hasErrors('InterestRate')}" th:errors="${product.interestRate}">Interest rate Error</div>
+  <br/>
+  <label for="CreditLimit"> Credit limit: </label>
+  <input type="text" th:field="${product.creditLimit}" id="CreditLimit"/>
+  <div style="color:red" th:if="${#fields.hasErrors('CreditLimit')}" th:errors="${product.creditLimit}">Credit limit Error</div>
+  <br/>
+  <div>
+  <label for="currencyCode"> Currency code:        </label>
+  <select id="currencyCode" required th:field="*{currencyCode}">
+    <option th:each="currencyCode : ${currencyCodes}"
+            th:value="${currencyCode}"
+            th:text="${currencyCode}">
+    </option>
+  </select>
+</div>
+  <br/>
+    <div>
+      <label for="status"> Status:        </label>
+      <select id="status" required th:field="*{productStatus}">
+        <option th:each="status : ${statuses}"
+                th:value="${status}"
+                th:text="${status}">
+        </option>
+      </select>
+    </div>
+  <br/>
+    <div>
+      <label for="manager">Manager:
+        <select id="manager" required th:field="*{managerId}">
+          <option th:each="manager : ${managers}"
+                  th:value="${manager.getId()}"
+                  th:text="${manager.getLastName()}">
+          </option>
+        </select>
+      </label>
+    </div>
+  <br/>
+  <br/>
+  <input type="submit" value=" Save "/>
+</form>
+<br/>
+<a th:href = "@{/product/products}"> Back to Products List</a>
+<br>
+<div th:if="${errors}">
+  <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+</body>
+</html>

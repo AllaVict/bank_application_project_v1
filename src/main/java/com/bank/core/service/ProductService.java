@@ -48,7 +48,7 @@ public class ProductService {
         // productRepository.save(productCreateDTO);
         // Optional.of Returns:an Optional with the value present Throws: NullPointerException – if value is null
         //public static <T> Optional<T> of(T value) {  return new Optional<>(Objects.requireNonNull(value))}
-        productCreateUpdateDTO.setCreated_at(LocalDateTime.now());
+        productCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         return Optional.of(productCreateUpdateDTO)
                 //productCreateConverter  managerCreateDTO ->Manager
                 .map(productCreateUpdateConverter::convert)
@@ -66,10 +66,8 @@ public class ProductService {
         //.map(manager ->productRepository.saveAndFlush(productCreateEditDTO));
         Optional<Product> productForUpdate = Optional.ofNullable(productRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Product not found")));
-        productCreateUpdateDTO.setCreated_at(productForUpdate.get().getCreated_at());
-        productCreateUpdateDTO.setUpdated_at(LocalDateTime.now());
-        System.out.println("!!!!!! Manager productForUpdate "+productForUpdate.get().getManager());
-        System.out.println("!!!!!! Manager productCreateUpdateDTO "+productCreateUpdateDTO.getManager_id());
+        productCreateUpdateDTO.setCreatedAt(productForUpdate.get().getCreatedAt());
+        productCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
 
         return productForUpdate.map(product -> productCreateUpdateConverter.convert(productCreateUpdateDTO, product))
                 .map(productRepository::saveAndFlush) // save Product

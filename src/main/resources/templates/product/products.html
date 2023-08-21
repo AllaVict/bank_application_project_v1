@@ -5,40 +5,42 @@
     <title>Products</title>
 </head>
 <body>
+<br>
 Products
-
 <br>
 <br>
-<a href="/product/new_product">Add Product</a>
+<a href="/product/newProduct">Add Product</a>
 <br>
 <br>
-
 <table>
     <thead>
     <tr>
-        <th> id </th>
-        <th> product_status </th>
-        <th> product_name </th>
-        <th> currency_code </th>
-        <th> interest_rate </th>
-        <th> credit_limit </th>
-         <th>manager</th>
-        <th> created_at </th>
-        <th> updated_at </th>
+        <th> Id </th>
+        <th> Product status </th>
+        <th> Product name </th>
+        <th> Currency code </th>
+        <th> Interest rate </th>
+        <th> Credit limit </th>
+         <th> Manager</th>
+        <th> Created at </th>
+        <th> Updated at </th>
+        <th> Details Update Delete</th>
     </tr>
     </thead>
-
     <tbody>
+    <tr></tr>
     <tr th:each="product : ${products}">
         <td><span th:text="${product.id}"> id  </span></td>
-        <td><span th:text="${product.product_status}"> status </span></td>
-        <td><span th:text="${product.product_name}"> product_name  </span></td>
-        <td><span th:text="${product.currency_code}"> currency_code </span></td>
-        <td><span th:text="${product.interest_rate}"> interest_rate </span></td>
-        <td><span th:text="${product.credit_limit}"> credit_limit </span></td>
-        <td><span th:text="${product.manager.getLast_name()}"> manager </span></td>
-        <td><span th:text="${product.created_at}"> created_at </span></td>
-        <td><span th:text="${product.updated_at}"> updated_at </span></td>
+        <td><span th:text="${product.getProductStatus}"> Product status </span></td>
+        <td><span th:text="${product.productName}"> Product name  </span></td>
+        <td><span th:text="${product.getCurrencyCode}"> Currency code  </span></td>
+        <td><span th:text="${product.getInterestRate}"> Interest rate  </span></td>
+        <td><span th:text="${product.getCreditLimit}">  Credit limit </span></td>
+        <td><span th:text="${product.manager.getLastName()}"> Manager </span></td>
+<!--        <td><span th:text="${product.getCreatedAt}"> Created at </span></td>-->
+<!--        <td><span th:text="${product.getUpdatedAt}"> Updated at </span></td>-->
+        <td>  <span th:text="${#temporals.format(product.getCreatedAt(),'yyyy-MM-dd HH:mm')}">Created at</span></td>
+        <td>  <span th:text="${#temporals.format(product.getUpdatedAt(),'yyyy-MM-dd HH:mm')}">Updated at</span></td>
 
         <td>
         <a th:href="@{'/product/products/' + ${product.getId()}}"> Details </a>

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class BankAccountService {
     // accountReadConverter  account -> accountReadDTO
     @Transactional
     public BankAccountReadDTO create(BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO) {
+        bankAccountCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         return Optional.of(bankAccountCreateUpdateDTO)
                 .map(bankAccountCreateUpdateConverter::convert)
                 // .map(bankAccount -> bankAccountRepository.save(bankAccount))
@@ -59,7 +61,8 @@ public class BankAccountService {
         // .map(BankAccount ->bankAccountRepository.saveAndFlush(bankAccountCreateUpdateDTOO));
         Optional<BankAccount> accountForUpdate = Optional.ofNullable(bankAccountRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("BankAccount not found")));
-        bankAccountCreateUpdateDTOO.setCreated_at(accountForUpdate.get().getCreated_at());
+        bankAccountCreateUpdateDTOO.setCreatedAt(accountForUpdate.get().getCreatedAt());
+        bankAccountCreateUpdateDTOO.setUpdatedAt(LocalDateTime.now());
         return bankAccountRepository.findById(id) // findById(ID id) return Optional<T>
                 // convert(bankAccountCreateUpdateDTO, bankAccount) -- copy(fromBankAccountCreateUpdateDTO, toBankAccount);
                 .map(bankAccount -> bankAccountCreateUpdateConverter.convert(bankAccountCreateUpdateDTOO, bankAccount))

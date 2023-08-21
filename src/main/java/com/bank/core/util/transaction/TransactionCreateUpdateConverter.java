@@ -35,20 +35,20 @@ public class TransactionCreateUpdateConverter implements Converter<TransactionCr
 
     private void copy(TransactionCreateUpdateDTO object, Transaction transaction) {
         transaction.setId(object.getId());
-        transaction.setBankAccount(getBankAccount(object.getAccount_id()));
-        transaction.setProduct(getProduct(object.getProduct_id()));
+        transaction.setBankAccount(getBankAccount(object.getAccountId()));
+        //transaction.setProduct(getProduct(object.getProduct_id()));
         transaction.setSender(object.getSender());
-        transaction.setSource_account(object.getSource_account());
+        transaction.setSourceAccount(object.getSourceAccount());
         transaction.setBeneficiary(object.getBeneficiary());
-        transaction.setDestination_account(object.getDestination_account());
-        transaction.setTransaction_amount(object.getTransaction_amount());
+        transaction.setDestinationAccount(object.getDestinationAccount());
+        transaction.setTransactionAmount(object.getTransactionAmount());
         transaction.setDescription(object.getDescription());
-        transaction.setInterest_rate(object.getInterest_rate());
-        transaction.setTransaction_type(object.getTransaction_type());
-        transaction.setTransaction_status(object.getTransaction_status());
-        transaction.setTransaction_code(object.getTransaction_code());
-        transaction.setTransaction_date(object.getTransaction_date());
-        transaction.setTransaction_date(object.getEffective_date());
+        transaction.setInterestRate(object.getInterestRate());
+        transaction.setTransactionType(object.getTransactionType());
+        transaction.setTransactionStatus(object.getTransactionStatus());
+        transaction.setTransactionCode(object.getTransactionCode());
+        transaction.setTransactionDate(object.getTransactionDate());
+        transaction.setTransactionDate(object.getEffectiveDate());
 
     }
 

@@ -17,14 +17,14 @@ public class ClientReadToUpdateConverter implements Converter<ClientReadDTO, Cli
                 clientReadDTO.getId(),
                 clientReadDTO.getManager().getId(),
                 clientReadDTO.getStatus(),
-                clientReadDTO.getTax_code(),
-                clientReadDTO.getFirst_name(),
-                clientReadDTO.getLast_name(),
+                clientReadDTO.getTaxCode(),
+                clientReadDTO.getFirstName(),
+                clientReadDTO.getLastName(),
                 clientReadDTO.getEmail(),
                 clientReadDTO.getAddress(),
                 clientReadDTO.getPhone(),
-                clientReadDTO.getCreated_at(),
-                clientReadDTO.getUpdated_at()
+                clientReadDTO.getCreatedAt(),
+                clientReadDTO.getUpdatedAt()
 
         );
 

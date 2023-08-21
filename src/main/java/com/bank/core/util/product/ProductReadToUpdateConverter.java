@@ -15,13 +15,13 @@ public class ProductReadToUpdateConverter implements Converter<ProductReadDTO, P
         return new ProductCreateUpdateDTO(
                 productReadDTO.getId(),
                 productReadDTO.getManager().getId(),
-                productReadDTO.getProduct_status(),
-                productReadDTO.getProduct_name(),
-                productReadDTO.getCurrency_code(),
-                productReadDTO.getInterest_rate(),
-                productReadDTO.getCredit_limit(),
-                productReadDTO.getCreated_at(),
-                productReadDTO.getUpdated_at()
+                productReadDTO.getProductStatus(),
+                productReadDTO.getProductName(),
+                productReadDTO.getCurrencyCode(),
+                productReadDTO.getInterestRate(),
+                productReadDTO.getCreditLimit(),
+                productReadDTO.getCreatedAt(),
+                productReadDTO.getUpdatedAt()
 
         );
 

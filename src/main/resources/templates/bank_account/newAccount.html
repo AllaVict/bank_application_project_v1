@@ -7,27 +7,27 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/bank_account}" th:object="${account}">
+<form th:method="POST" th:action="@{/bankAccount}" th:object="${account}">
 
   <label for="account_name"> bank account name: </label>
-  <input type="text" th:field="${account.account_name}" id="account_name"/>
+  <input type="text" th:field="${account.accountName}" id="account_name"/>
    <br/>
   <label for="account_number"> bank account number: </label>
-  <input type="text" th:field="${account.account_number}" id="account_number"/>
+  <input type="text" th:field="${account.accountNumber}" id="account_number"/>
   <br/>
   <div>
     <label for="currency_code"> Currency code:        </label>
-    <select id="currency_code" required th:field="*{currency_code}">
-      <option th:each="currency_code : ${currency_codes}"
+    <select id="currency_code" required th:field="*{currencyCode}">
+      <option th:each="currency_code : ${currencyCodes}"
               th:value="${currency_code}"
               th:text="${currency_code}">
       </option>
     </select>
   </div>
-
+  <br/>
   <div>
     <label for="type"> bank account type:        </label>
-    <select id="type" required th:field="*{account_type}">
+    <select id="type" required th:field="*{bankAccountType}">
       <option th:each="type : ${types}"
               th:value="${type}"
               th:text="${type}">
@@ -35,10 +35,9 @@
     </select>
   </div>
   <br/>
-
   <div>
     <label for="status"> Status:        </label>
-    <select id="status" required th:field="${account.status}">
+    <select id="status" required th:field="*{status}">
       <option th:each="status : ${statuses}"
               th:value="${status}"
               th:text="${status}">
@@ -48,16 +47,16 @@
   <br/>
   <div>
     <label for="client">Client:
-      <select id="client" required th:field="*{client_id}">
+      <select id="client" required th:field="*{clientId}">
         <option th:each="client : ${clients}"
                 th:value="${client.getId()}"
-                th:text="${client.getLast_name()}">
+                th:text="${client.getLastName()}">
         </option>
       </select>
     </label>
   </div>
   <br/>
-
+  <br/>
   <input type="submit" value=" Save "/>
 
 </form>
@@ -68,6 +67,6 @@
 
 <br>
 <br>
-<a th:href="@{/bank_account/bank_accounts}"> Back to Bank account List</a>
+<a th:href="@{/bankAccount/bankAccounts}"> Back to Bank account List</a>
 </body>
 </html>

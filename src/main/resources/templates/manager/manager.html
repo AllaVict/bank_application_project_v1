@@ -5,26 +5,26 @@
     <title>Manager</title>
 </head>
 <body>
-<!--<div  th:method="POST" th:action="@{/admin}" th:object="${manager}">-->
+
     <div>
     <table>
         <thead>
         <tr>
             <th> Disrciption </th>
-            <th> content </th>
+            <th> Content </th>
         </tr>
         </thead>
         <tbody>
-        <tr> <td>first name  </td>
-            <td><span th:text="${manager.first_name}"> first name </span></td>  </tr>
-        <tr> <td>last name  </td>
-            <td><span th:text="${manager.last_name}"> last name </span></td>   </tr>
-        <tr>  <td>status  </td>
-            <td><span th:text="${manager.manager_status}"> status </span></td>         </tr>
-        <tr> <td>description  </td>
-            <td><span th:text="${manager.description}"> description </span></td>    </tr>
-        <tr> <td>created at  </td>
-            <td><span th:text="${manager.created_at}"> created at </span></td>  </tr>
+        <tr> <td>First name  </td>
+            <td><span th:text="${manager.getFirstName}"> First name </span></td>  </tr>
+        <tr> <td>Last name  </td>
+            <td><span th:text="${manager.getLastName}"> Last name </span></td>   </tr>
+        <tr>  <td>Status  </td>
+            <td><span th:text="${manager.getManagerStatus}"> Status </span></td>         </tr>
+        <tr> <td>Description  </td>
+            <td><span th:text="${manager.description}"> Description </span></td>    </tr>
+        <tr> <td>Created at  </td>
+            <td><span th:text="${manager.getCreatedAt}"> Created at </span></td>  </tr>
         </tbody>
     </table>
 </div>
@@ -38,12 +38,11 @@
 <input type="submit" value="Update"/>
 </form>
 <br>
-<br>
 <form th:method="GET"
       th:action="@{/manager/delete/{id}(id=${manager.getId()})}">
     <button type="submit"> Remove</button>
 </form>
-
+<br>
 <div th:if="${errors}">
   <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
 </div>
@@ -52,26 +51,3 @@
 </html>
 
 
-
-<!--th:action="@{/admin}  part of url adress   @GetMapping("/managers/{id}")  findById() //=== admin/managers/{id}-->
-<!--works the same way-->
-<!--<form th:action="@{/admin}" enctype="multipart/form-data"  method="POST"  th:object="${manager}">-->
-<!--<form th:method="POST" th:action="@{/admin}" th:object="${manager}">-->
-<!--    <label for="first_name"> first_name: </label>-->
-<!--    <input type="text" th:field="${manager.first_name}" id="first_name"/>-->
-<!--    <br/>-->
-<!--    <label for="last_name"> last_name: </label>-->
-<!--    <input type="text" th:field="${manager.last_name}" id="last_name"/>-->
-<!--    <br/>-->
-<!--    <label for="status">status : </label>-->
-<!--    <input type="number" th:field="${manager.status}" id="status"/>-->
-<!--    <br/>-->
-<!--    <label for="description"> description: </label>-->
-<!--    <input type="text" th:field="${manager.description}" id="description"/>-->
-<!--    <br/>-->
-<!--    <label for="created_at"> created_at: </label>-->
-<!--    <input type="datetime-local" th:field="${manager.created_at}" id="created_at"/>-->
-<!--    <br/>-->
-<!--    &lt;!&ndash;        <input type="submit" value=" Update "/>&ndash;&gt;-->
-<!--    &lt;!&ndash;    <button type="submit">Update</button>&ndash;&gt;-->
-<!--</form>-->

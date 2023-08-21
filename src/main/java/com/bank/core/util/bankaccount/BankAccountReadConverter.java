@@ -26,14 +26,14 @@ public class BankAccountReadConverter implements Converter<BankAccount, BankAcco
         return new BankAccountReadDTO(
                 bankAccount.getId(),
                 client,
-                bankAccount.getAccount_name(),
-                bankAccount.getAccount_number(),
-                bankAccount.getAccount_type(),
+                bankAccount.getAccountName(),
+                bankAccount.getAccountNumber(),
+                bankAccount.getAccountType(),
                 bankAccount.getStatus(),
                 bankAccount.getBalance(),
-                bankAccount.getCurrency_code(),
-                bankAccount.getCreated_at(),
-                bankAccount.getUpdated_at()
+                bankAccount.getCurrencyCode(),
+                bankAccount.getCreatedAt(),
+                bankAccount.getUpdatedAt()
         );
     }
 

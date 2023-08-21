@@ -32,16 +32,16 @@ public class ClientCreateUpdateConverter implements Converter<ClientCreateUpdate
     }
     private void copy(ClientCreateUpdateDTO object, Client client) {
         client.setId(object.getId());
-        client.setManager(getManager(object.getManager_id()));
+        client.setManager(getManager(object.getManagerId()));
         client.setStatus(object.getStatus());
-        client.setTax_code(object.getTax_code());
-        client.setFirst_name(object.getFirst_name());
-        client.setLast_name(object.getLast_name());
+        client.setTaxCode(object.getTaxCode());
+        client.setFirstName(object.getFirstName());
+        client.setLastName(object.getLastName());
         client.setEmail(object.getEmail());
         client.setAddress(object.getAddress());
         client.setPhone(object.getPhone());
-        client.setCreated_at(object.getCreated_at());
-        client.setUpdated_at(object.getUpdated_at());
+        client.setCreatedAt(object.getCreatedAt());
+        client.setUpdatedAt(object.getUpdatedAt());
     }
 
     public Manager getManager(Long managerId) {

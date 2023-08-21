@@ -32,14 +32,14 @@ public class ProductCreateUpdateConverter implements Converter<ProductCreateUpda
 
     private void copy(ProductCreateUpdateDTO object, Product product) {
         product.setId(object.getId());
-        product.setManager(getManager(object.getManager_id()));
-        product.setProduct_status(object.getProduct_status());
-        product.setProduct_name(object.getProduct_name());
-        product.setCurrency_code(object.getCurrency_code());
-        product.setInterest_rate(object.getInterest_rate());
-        product.setCredit_limit(object.getCredit_limit());
-        product.setCreated_at(object.getCreated_at());
-        product.setUpdated_at(object.getUpdated_at());
+        product.setManager(getManager(object.getManagerId()));
+        product.setProductStatus(object.getProductStatus());
+        product.setProductName(object.getProductName());
+        product.setCurrencyCode(object.getCurrencyCode());
+        product.setInterestRate(object.getInterestRate());
+        product.setCreditLimit(object.getCreditLimit());
+        product.setCreatedAt(object.getCreatedAt());
+        product.setUpdatedAt(object.getUpdatedAt());
 
     }
 

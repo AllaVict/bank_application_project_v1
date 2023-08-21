@@ -14,11 +14,11 @@ public class ManagerReadConverter implements Converter<Manager, ManagerReadDTO> 
     public ManagerReadDTO convert(Manager manager) {
         return new ManagerReadDTO(
                 manager.getId(),
-                manager.getFirst_name(),
-                manager.getLast_name(),
-                manager.getManager_status(),
+                manager.getFirstName(),
+                manager.getLastName(),
+                manager.getManagerStatus(),
                 manager.getDescription(),
-                manager.getCreated_at()
+                manager.getCreatedAt()
         );
     }
 

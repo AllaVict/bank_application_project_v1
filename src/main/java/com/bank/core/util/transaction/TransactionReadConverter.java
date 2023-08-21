@@ -4,7 +4,6 @@ import com.bank.core.util.Converter;
 import com.bank.core.util.bankaccount.BankAccountReadConverter;
 import com.bank.core.util.product.ProductReadConverter;
 import com.bank.model.dto.bankaccount.BankAccountReadDTO;
-import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.dto.transaction.TransactionReadDTO;
 import com.bank.model.entity.Transaction;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +20,9 @@ public class TransactionReadConverter implements Converter<Transaction, Transact
 
     @Override
     public TransactionReadDTO convert(Transaction transaction) {
-       ProductReadDTO product = Optional.ofNullable(transaction.getProduct())
-                .map(productReadConverter::convert)
-                .orElse(null);
+//       ProductReadDTO product = Optional.ofNullable(transaction.getProduct())
+//                .map(productReadConverter::convert)
+//                .orElse(null);
 
         BankAccountReadDTO bankAccount = Optional.ofNullable(transaction.getBankAccount())
                 .map(bankAccountReadConverter::convert)
@@ -32,19 +31,18 @@ public class TransactionReadConverter implements Converter<Transaction, Transact
         return new TransactionReadDTO(
                 transaction.getId(),
                 bankAccount,
-                product,
                 transaction.getSender(),
-                transaction.getSource_account(),
+                transaction.getSourceAccount(),
                 transaction.getBeneficiary(),
-                transaction.getDestination_account(),
-                transaction.getTransaction_amount(),
+                transaction.getDestinationAccount(),
+                transaction.getTransactionAmount(),
                 transaction.getDescription(),
-                transaction.getInterest_rate(),
-                transaction.getTransaction_type(),
-                transaction.getTransaction_status(),
-                transaction.getTransaction_code(),
-                transaction.getTransaction_date(),
-                transaction.getEffective_date()
+                transaction.getInterestRate(),
+                transaction.getTransactionType(),
+                transaction.getTransactionStatus(),
+                transaction.getTransactionCode(),
+                transaction.getTransactionDate(),
+                transaction.getEffectiveDate()
            );
 
 

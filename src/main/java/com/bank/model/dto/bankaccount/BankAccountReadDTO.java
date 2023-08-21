@@ -24,13 +24,13 @@ public class BankAccountReadDTO {
 
     Long id;
     ClientReadDTO client;
-    String account_name;
-    String account_number;
-    BankAccountType account_type;
+    String accountName;
+    String accountNumber;
+    BankAccountType accountType;
     BankAccountStatus status;
     BigDecimal balance;
-    CurrencyCode currency_code;
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
+    CurrencyCode currencyCode;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 }

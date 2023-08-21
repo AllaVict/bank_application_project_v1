@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 public class TransactionCreateUpdateDTO {
 
     Long id;
-    Long account_id;
-    Long product_id;
+    Long accountId;
+   // Long product_id;
 
     @NotEmpty(message = "sender name does not empty")
     @Size(min = 3, max = 100, message = "sender name must be from 3 to 100")
@@ -29,7 +29,7 @@ public class TransactionCreateUpdateDTO {
 
     @NotEmpty(message = "source_account  does not empty")
     @Size(min = 26, max = 26, message = "source_account  must be 26")
-    String source_account;
+    String sourceAccount;
 
     @NotEmpty(message = "beneficiary does not empty")
     @Size(min = 3, max = 70, message = "beneficiary name must be from 3 to 100")
@@ -37,25 +37,25 @@ public class TransactionCreateUpdateDTO {
 
     @NotEmpty(message = "destination account  does not empty")
     @Size(min = 26, max = 26, message = "destination account  must be 26")
-    String destination_account;
+    String destinationAccount;
 
     @Min(value=0, message = "Interest rate must be 0 or bigger then 0 ")
-    BigDecimal transaction_amount; // numeric(25,2),
+    BigDecimal transactionAmount; // numeric(25,2),
 
     String description;//varchar(150),
 
     @Min(value=0, message = "Interest rate must be 0 or bigger then 0 ")
-    BigDecimal interest_rate;
+    BigDecimal interestRate;
 
     @Enumerated(EnumType.STRING)
-    TransactionType transaction_type;
+    TransactionType transactionType;
 
     @Enumerated(EnumType.STRING)
-    TransactionStatus transaction_status;
+    TransactionStatus transactionStatus;
 
-    String transaction_code;
-    LocalDateTime transaction_date;
-    LocalDateTime effective_date;
+    String transactionCode;
+    LocalDateTime transactionDate;
+    LocalDateTime effectiveDate;
 
 
 

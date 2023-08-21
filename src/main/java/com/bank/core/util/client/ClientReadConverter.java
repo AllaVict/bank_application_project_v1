@@ -27,14 +27,14 @@ public class ClientReadConverter implements Converter<Client, ClientReadDTO> {
                 client.getId(),
                 manager,
                 client.getStatus(),
-                client.getTax_code(),
-                client.getFirst_name(),
-                client.getLast_name(),
+                client.getTaxCode(),
+                client.getFirstName(),
+                client.getLastName(),
                 client.getEmail(),
                 client.getAddress(),
                 client.getPhone(),
-                client.getCreated_at(),
-                client.getUpdated_at()
+                client.getCreatedAt(),
+                client.getUpdatedAt()
         );
     }
 

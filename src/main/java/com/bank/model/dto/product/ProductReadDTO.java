@@ -23,13 +23,13 @@ public class ProductReadDTO {
 
     Long id;
     ManagerReadDTO manager;
-    ProductStatus product_status;
-    String product_name;
-    CurrencyCode currency_code;
-    BigDecimal interest_rate;
-    BigDecimal credit_limit;
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
+    ProductStatus productStatus;
+    String productName;
+    CurrencyCode currencyCode;
+    BigDecimal interestRate;
+    BigDecimal creditLimit;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 
 

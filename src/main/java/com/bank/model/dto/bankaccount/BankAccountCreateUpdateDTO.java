@@ -23,18 +23,18 @@ import java.time.LocalDateTime;
 public class BankAccountCreateUpdateDTO {
 
     Long id;
-    Long client_id;
+    Long clientId;
 
     @NotEmpty(message = "Account name code does not empty")
     @Size(min = 1, max = 20, message = "Account name must be from 1 to 20")
-    String account_name;
+    String accountName;
 
     @NotEmpty(message = "Account number  does not empty")
     @Size(min = 1, max = 26, message = "Account number must be 26")
-    String account_number;
+    String accountNumber;
 
     @Enumerated(EnumType.STRING)
-    BankAccountType account_type;
+    BankAccountType bankAccountType;
 
     @Enumerated(EnumType.STRING)
     BankAccountStatus status;
@@ -43,10 +43,10 @@ public class BankAccountCreateUpdateDTO {
     BigDecimal balance;
 
     @Enumerated(EnumType.STRING)
-    CurrencyCode currency_code;
+    CurrencyCode currencyCode;
 
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 
 }
