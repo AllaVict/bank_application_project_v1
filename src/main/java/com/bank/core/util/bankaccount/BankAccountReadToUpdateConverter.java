@@ -16,6 +16,7 @@ public class BankAccountReadToUpdateConverter implements Converter<BankAccountRe
         return new BankAccountCreateUpdateDTO(
                 bankAccountReadDTO.getId(),
                 bankAccountReadDTO.getClient().getId(),
+                bankAccountReadDTO.getProduct().getId(),
                 bankAccountReadDTO.getAccountName(),
                 bankAccountReadDTO.getAccountNumber(),
                 bankAccountReadDTO.getAccountType(),

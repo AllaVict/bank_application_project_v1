@@ -1,6 +1,7 @@
 package com.bank.model.dto.transaction;
 
 import com.bank.model.dto.bankaccount.BankAccountReadDTO;
+import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.enums.TransactionStatus;
 import com.bank.model.enums.TransactionType;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,6 @@ public class TransactionReadDTO {
 
     Long id;
     BankAccountReadDTO bankAccount;
-  //  ProductReadDTO product;
     String sender;
     String sourceAccount;
     String beneficiary;
@@ -28,6 +28,8 @@ public class TransactionReadDTO {
     TransactionType transactionType;
     TransactionStatus transactionStatus;
     String transactionCode;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
     LocalDateTime transactionDate;
     LocalDateTime effectiveDate;
 

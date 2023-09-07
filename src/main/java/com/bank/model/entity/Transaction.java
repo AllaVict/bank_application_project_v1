@@ -57,9 +57,14 @@ public class Transaction {
     TransactionStatus transactionStatus;
 
     String transactionCode;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
     LocalDateTime transactionDate;
     LocalDateTime effectiveDate;
 
 
 }
+
+
+
 

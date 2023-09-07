@@ -2,9 +2,9 @@ package com.bank.core.util.client;
 
 import com.bank.core.util.Converter;
 import com.bank.core.util.manager.ManagerReadConverter;
-import com.bank.model.dto.client.ClientReadDTO;
 import com.bank.model.dto.manager.ManagerReadDTO;
 import com.bank.model.entity.Client;
+import com.bank.model.dto.client.ClientReadDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +33,8 @@ public class ClientReadConverter implements Converter<Client, ClientReadDTO> {
                 client.getEmail(),
                 client.getAddress(),
                 client.getPhone(),
+//                client.getPassword(),
+//                client.getRole(),
                 client.getCreatedAt(),
                 client.getUpdatedAt()
         );

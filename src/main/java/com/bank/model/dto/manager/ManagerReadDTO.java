@@ -1,8 +1,7 @@
 package com.bank.model.dto.manager;
 
 import com.bank.model.enums.ManagerStatus;
-import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,8 +11,9 @@ import java.time.LocalDateTime;
  because immutability is not something that can be forced onto a subclass.
  */
 
-@Value
+@Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class ManagerReadDTO {
     Long id;
     String firstName;
@@ -22,6 +22,9 @@ public class ManagerReadDTO {
     String description;
     LocalDateTime createdAt;
 
+
+    public ManagerReadDTO(Long managerId) {
+    }
 }
 
 

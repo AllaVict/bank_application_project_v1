@@ -3,8 +3,7 @@ package com.bank.model.dto.product;
 import com.bank.model.dto.manager.ManagerReadDTO;
 import com.bank.model.enums.CurrencyCode;
 import com.bank.model.enums.ProductStatus;
-import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

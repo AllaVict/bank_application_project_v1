@@ -1,6 +1,7 @@
 package com.bank.model.dto.client;
 
 import com.bank.model.enums.ClientStatus;
+import com.bank.model.enums.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
@@ -45,6 +46,13 @@ public class ClientCreateUpdateDTO {
 
     @NotEmpty(message = "Phone does not empty")
     String phone;
+
+//    @NotEmpty(message = "password does not empty")
+//    @Size(min = 1, max = 100, message = "password must be from 1 to 10")
+//    String password;
+//
+//    @Enumerated(EnumType.STRING)
+//    Role role;
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;

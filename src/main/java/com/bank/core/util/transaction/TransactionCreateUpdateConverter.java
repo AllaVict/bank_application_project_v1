@@ -1,12 +1,14 @@
 package com.bank.core.util.transaction;
 
 import com.bank.core.util.Converter;
+import com.bank.model.dto.product.ProductCreateUpdateDTO;
 import com.bank.model.dto.transaction.TransactionCreateUpdateDTO;
 import com.bank.model.entity.BankAccount;
-import com.bank.model.entity.Product;
 import com.bank.model.entity.Transaction;
+import com.bank.model.entity.Product;
 import com.bank.repository.BankAccountRepository;
 import com.bank.repository.ProductRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +29,8 @@ public class TransactionCreateUpdateConverter implements Converter<TransactionCr
     }
 
     @Override
-    public Transaction convert(TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
-        Transaction transaction=new Transaction();
+    public Transaction convert(TransactionCreateUpdateDTO transactionCreateUpdateDTO){
+        Transaction transaction =new Transaction();
         copy(transactionCreateUpdateDTO, transaction);
         return transaction;
     }
@@ -36,7 +38,6 @@ public class TransactionCreateUpdateConverter implements Converter<TransactionCr
     private void copy(TransactionCreateUpdateDTO object, Transaction transaction) {
         transaction.setId(object.getId());
         transaction.setBankAccount(getBankAccount(object.getAccountId()));
-        //transaction.setProduct(getProduct(object.getProduct_id()));
         transaction.setSender(object.getSender());
         transaction.setSourceAccount(object.getSourceAccount());
         transaction.setBeneficiary(object.getBeneficiary());
@@ -47,8 +48,10 @@ public class TransactionCreateUpdateConverter implements Converter<TransactionCr
         transaction.setTransactionType(object.getTransactionType());
         transaction.setTransactionStatus(object.getTransactionStatus());
         transaction.setTransactionCode(object.getTransactionCode());
+        transaction.setCreatedAt(object.getCreatedAt());
+        transaction.setUpdatedAt(object.getUpdatedAt());
         transaction.setTransactionDate(object.getTransactionDate());
-        transaction.setTransactionDate(object.getEffectiveDate());
+        transaction.setEffectiveDate(object.getEffectiveDate());
 
     }
 

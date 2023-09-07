@@ -1,8 +1,8 @@
 package com.bank.core.util.manager;
 
 import com.bank.core.util.Converter;
-import com.bank.model.dto.manager.ManagerReadDTO;
 import com.bank.model.entity.Manager;
+import com.bank.model.dto.manager.ManagerReadDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

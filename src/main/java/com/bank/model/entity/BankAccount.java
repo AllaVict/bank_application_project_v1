@@ -23,13 +23,13 @@ public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     Client client;
 
-//    @ManyToOne//(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "product_id")
-//    Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    Product product;
 
     @NotEmpty(message = "Account name  does not empty")
     @Size(min = 1, max = 20, message = "Account name must be from 1 to 20")

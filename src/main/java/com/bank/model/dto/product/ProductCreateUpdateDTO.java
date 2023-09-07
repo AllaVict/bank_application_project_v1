@@ -2,9 +2,7 @@ package com.bank.model.dto.product;
 
 import com.bank.model.enums.CurrencyCode;
 import com.bank.model.enums.ProductStatus;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

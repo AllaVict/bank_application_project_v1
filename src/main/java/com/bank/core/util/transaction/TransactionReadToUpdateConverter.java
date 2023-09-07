@@ -1,6 +1,8 @@
 package com.bank.core.util.transaction;
 
 import com.bank.core.util.Converter;
+import com.bank.model.dto.product.ProductCreateUpdateDTO;
+import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.dto.transaction.TransactionCreateUpdateDTO;
 import com.bank.model.dto.transaction.TransactionReadDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,6 @@ public class TransactionReadToUpdateConverter implements Converter<TransactionRe
         return new TransactionCreateUpdateDTO(
                 transactionReadDTO.getId(),
                 transactionReadDTO.getBankAccount().getId(),
-                //transactionReadDTO.getProduct().getId(),
                 transactionReadDTO.getSender(),
                 transactionReadDTO.getSourceAccount(),
                 transactionReadDTO.getBeneficiary(),
@@ -26,11 +27,11 @@ public class TransactionReadToUpdateConverter implements Converter<TransactionRe
                 transactionReadDTO.getTransactionType(),
                 transactionReadDTO.getTransactionStatus(),
                 transactionReadDTO.getTransactionCode(),
+                transactionReadDTO.getCreatedAt(),
+                transactionReadDTO.getUpdatedAt(),
                 transactionReadDTO.getTransactionDate(),
                 transactionReadDTO.getEffectiveDate()
-
         );
-
     }
 
 

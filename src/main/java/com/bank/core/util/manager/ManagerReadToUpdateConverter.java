@@ -1,8 +1,8 @@
 package com.bank.core.util.manager;
 
 import com.bank.core.util.Converter;
-import com.bank.model.dto.manager.ManagerCreateUpdateDTO;
 import com.bank.model.dto.manager.ManagerReadDTO;
+import com.bank.model.dto.manager.ManagerCreateUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +18,9 @@ public class ManagerReadToUpdateConverter implements Converter<ManagerReadDTO, M
                 managerReadDTO.getLastName(),
                 managerReadDTO.getManagerStatus(),
                 managerReadDTO.getDescription(),
+//                managerReadDTO.getUsername(),
+//                managerReadDTO.getPassword(),
+//                managerReadDTO.getRole(),
                 managerReadDTO.getCreatedAt()
 
         );

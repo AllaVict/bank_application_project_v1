@@ -1,6 +1,7 @@
 package com.bank.model.entity;
 
 import com.bank.model.enums.ManagerStatus;
+import com.bank.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -44,8 +45,16 @@ public class Manager {
 
     LocalDateTime createdAt;
 
+    public Manager(String firstName, String lastName, ManagerStatus managerStatus, String description) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.managerStatus = managerStatus;
+        this.description = description;
+    }
+
 
 }
+
 
 
 

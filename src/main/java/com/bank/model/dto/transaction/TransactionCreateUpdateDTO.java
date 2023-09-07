@@ -21,7 +21,6 @@ public class TransactionCreateUpdateDTO {
 
     Long id;
     Long accountId;
-   // Long product_id;
 
     @NotEmpty(message = "sender name does not empty")
     @Size(min = 3, max = 100, message = "sender name must be from 3 to 100")
@@ -54,9 +53,14 @@ public class TransactionCreateUpdateDTO {
     TransactionStatus transactionStatus;
 
     String transactionCode;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
     LocalDateTime transactionDate;
     LocalDateTime effectiveDate;
 
 
 
 }
+
+
+

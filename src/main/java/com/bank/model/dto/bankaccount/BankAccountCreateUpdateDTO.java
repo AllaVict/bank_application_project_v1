@@ -24,6 +24,7 @@ public class BankAccountCreateUpdateDTO {
 
     Long id;
     Long clientId;
+    Long productId;
 
     @NotEmpty(message = "Account name code does not empty")
     @Size(min = 1, max = 20, message = "Account name must be from 1 to 20")

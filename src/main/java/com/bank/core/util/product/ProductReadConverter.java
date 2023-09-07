@@ -3,8 +3,8 @@ package com.bank.core.util.product;
 import com.bank.core.util.Converter;
 import com.bank.core.util.manager.ManagerReadConverter;
 import com.bank.model.dto.manager.ManagerReadDTO;
-import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.entity.Product;
+import com.bank.model.dto.product.ProductReadDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -32,8 +32,8 @@ public class ProductReadConverter implements Converter<Product, ProductReadDTO> 
                 product.getCreditLimit(),
                 product.getCreatedAt(),
                 product.getUpdatedAt()
-
         );
-
     }
+
+
 }

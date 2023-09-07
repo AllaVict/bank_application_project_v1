@@ -1,8 +1,8 @@
 package com.bank.core.util.product;
 
 import com.bank.core.util.Converter;
-import com.bank.model.dto.product.ProductCreateUpdateDTO;
 import com.bank.model.dto.product.ProductReadDTO;
+import com.bank.model.dto.product.ProductCreateUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
