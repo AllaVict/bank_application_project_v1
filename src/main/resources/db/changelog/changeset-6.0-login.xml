@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="6.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-6.1-login-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-6.2-login-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+            INSERT INTO login_entity
+                (id, username, password, role, client_id, created_at, updated_at)
+            VALUES
+                (1, 'alinasmith', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm'  ,'CLIENT',1,'2023-07-01','2023-07-01'),
+                (2, 'TomJakson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 2,'2023-07-11', '2023-07-11'),
+                (3,   'jaklinford', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 3,'2023-07-11', '2023-07-11'),
+                (4,   'VensDisel', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 4,'2023-07-11', '2023-07-11'),
+                (5,   'KerryTruemen', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT',5,'2023-07-11', '2023-07-11'),
+                (6,  'SaraGrinber','$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 6, '2023-07-01', '2023-07-11'),
+                (7,  'TinaKanson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' , 'CLIENT',7, '2023-07-11', '2023-07-11'),
+                (8,   'GrettaPirson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 8, '2023-07-11', '2023-07-11'),
+                (9,   'BaryWilson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 9, '2023-07-11', '2023-07-11'),
+                (10,   'RobWong','$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 10, '2023-07-11', '2023-07-11'),
+                (11,    'TinaKanson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 11, '2023-07-11', '2023-07-11'),
+                (12,    'GrettaPirson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 12,'2023-07-11', '2023-07-11'),
+                (13,    'BaryWilson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 13,'2023-07-11', '2023-07-11'),
+                (14,    'robbywolf', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'ADMIN', 14,'2023-07-11', '2023-07-11'),
+                (15,    'jakhenry', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' , 'MANAGER',15,'2023-07-11', '2023-07-11');
+
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

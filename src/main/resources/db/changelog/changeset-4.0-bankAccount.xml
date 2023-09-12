@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="4.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-4.1-bankAccount-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-4.2-bankAccount-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+            INSERT INTO bank_account
+            (id, client_id, product_id,account_name, account_type,  currency_code, account_number, balance,status, created_at)
+            VALUES
+                (1,1,1,'current_per_PLN','PERSONAL','PLN','11000022220000333300002222',750,'ACTIVATED', '2023-07-11'),
+                (2,1,3,'current_per_EUR','PERSONAL','EUR','55000044440000333300004444',1000,'ACTIVATED', '2023-07-11'),
+                (3,1,10,'current_bus_PLN','BUSINESS','PLN','55000044440000333300004444',1000,'ACTIVATED', '2023-07-11'),
+                (4,1,8,'credit_USD' ,'CREDIT','USD','44000055550000333300005555', 30000,'ACTIVATED', '2023-07-11'),
+                (5,1,9,'deposit_EUR','DEPOSIT','EUR','66000088880000333300008888', 1100,'ACTIVATED','2023-07-11'),
+
+                (6,2,1,'current_per_PLN','PERSONAL','PLN','77000077770000333300007777',  65,  'ACTIVATED', '2023-07-11'),
+                (7,2,1,'current_per_PLN','PERSONAL','PLN','88000099990000333300009999',7000, 'ACTIVATED',  '2023-07-11'),
+                (8,3,10,'current_bus_PLN','BUSINESS','PLN','22000011110000333300001111',25005,'ACTIVATED',  '2023-07-11'),
+                (9,4,10,'current_bus_PLN','BUSINESS', 'PLN','99000033330000333300003333',8900,  'ACTIVATED','2023-07-11'),
+
+                (10,5,10,'current_bus_PLN','BUSINESS','PLN' ,'11000066660000666600006666', 5500,'ACTIVATED', '2023-07-11'),
+                (11,5,11,'current_bus_USD','BUSINESS', 'USD','33000022220000333300002222',10000,'ACTIVATED',  '2023-07-11'),
+                (12,5,12,'current_bus_EUR','BUSINESS','EUR','33000022220000333300002222',7700, 'CHECKING',  '2023-07-11'),
+                (13,5,15,'deposit_EUR','DEPOSIT','EUR','33000022220000333300002222', -3000, 'BLOCKED', '2023-07-11'),
+                (14,5,16,'credit_PLN','CREDIT','PLN','33000022220000333300002222',-2000, 'CLOSED',  '2023-07-11'),
+
+                (15,7,19,'transit','TRANSIT','PLN','11000077770000555500007777',10000000,'ACTIVATED', '2023-07-11'),
+                (16,7,20,'transit','TRANSIT','EUR','22000077770000555500007777',10000000,'ACTIVATED', '2023-07-11'),
+                (17,7,21,'transit','TRANSIT','USD','33000077770000555500007777',10000000,'ACTIVATED', '2023-07-11');
+
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

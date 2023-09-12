@@ -112,38 +112,6 @@
                 <version>3.4.5</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
-                <configuration>
-                    <excludes>
-                        <exclude>com/bank/config/*</exclude>
-                        <exclude>com/bank/core/service/*</exclude>
-                        <exclude>com/bank/http/controller/*</exclude>
-                        <exclude>com/bank/http/handler/*</exclude>
-                        <exclude>com/bank/model/dto/*</exclude>
-                        <exclude>com/bank/model/enums/*</exclude>
-                        <exclude>com/bank/sexample/*</exclude>
-                   </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate-jacoco-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
 
 
         </plugins>

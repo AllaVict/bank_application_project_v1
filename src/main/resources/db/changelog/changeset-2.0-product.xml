@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="2.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-2.1-product-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-2.2-product-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+            INSERT INTO product
+            (id, manager_id, product_name, product_status, currency_code, interest_rate, credit_limit, created_at)
+            VALUES
+                (1, 1, 'current_personal_PLN', 'ACTIVE', 'PLN', 0.0000, 0.00 ,'2023-07-11'),
+                (2, 1, 'current_personal_USD', 'ACTIVE', 'USD', 0.0000, 0.00 ,'2023-07-11'),
+                (3, 1, 'current_personal_EUR', 'ACTIVE', 'EUR', 0.0000, 0.00 ,'2023-07-11'),
+
+                (4, 1, 'deposit_personal_PLN', 'ACTIVE', 'PLN', 3.5000, 0.00,'2023-07-11'),
+                (5, 1, 'deposit_personal_USD', 'ACTIVE', 'USD', 1.1000, 0.00 ,'2023-07-11'),
+                (6, 1, 'deposit_personal_EUR', 'ACTIVE', 'EUR', 0.8000, 0.00,'2023-07-11'),
+
+                (7, 1, 'credit_personal_PLN', 'ACTIVE', 'PLN', 5.0000, 1000000.00,'2023-07-11'),
+                (8, 1, 'credit_personal_USD', 'ACTIVE', 'USD', 2.0000, 1000000.00 ,'2023-07-11'),
+                (9, 1, 'credit_personal_EUR', 'ACTIVE', 'EUR', 1.8000, 1000000.00,'2023-07-11'),
+
+                (10, 1, 'current_business_PLN', 'ACTIVE', 'PLN', 0.0000, 0.00,'2023-07-11'),
+                (11, 1, 'current_business_USD', 'ACTIVE', 'USD', 0.0000, 0.00 ,'2023-07-11'),
+                (12, 1, 'current_business_EUR', 'ACTIVE', 'EUR', 0.0000, 0.00,'2023-07-11'),
+
+                (13, 1, 'deposit_business_PLN', 'ACTIVE', 'PLN', 4.5000, 0.00,'2023-07-11'),
+                (14, 1, 'deposit_business_USD', 'ACTIVE', 'USD', 1.9000, 0.00 ,'2023-07-11'),
+                (15, 1, 'deposit_business_EUR', 'ACTIVE', 'EUR', 1.7000, 0.00,'2023-07-11'),
+
+                (16, 1, 'credit_business_PLN', 'ACTIVE', 'PLN', 5.50, 7000000.00,'2023-07-11'),
+                (17, 1, 'credit_business_USD', 'ACTIVE', 'USD', 2.20, 7000000.00 ,'2023-07-11'),
+                (18, 1, 'credit_business_EUR', 'ACTIVE', 'EUR', 2.00, 7000000.00,'2023-07-11');
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

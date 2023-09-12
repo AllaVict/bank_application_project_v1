@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+
+    <changeSet id="1" author="allaborodina">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+    <include file="changeset-1.0-manager.xml" relativeToChangelogFile="true"/>
+    <include file="changeset-2.0-product.xml" relativeToChangelogFile="true"/>
+    <include file="changeset-3.0-client.xml" relativeToChangelogFile="true"/>
+    <include file="changeset-4.0-bankAccount.xml" relativeToChangelogFile="true"/>
+    <include file="changeset-5.0-transaction.xml" relativeToChangelogFile="true"/>
+    <include file="changeset-6.0-login.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="6" author="allaborodina">
+        <tagDatabase tag="1.0"/>
+    </changeSet>
+
+</databaseChangeLog>
+
+

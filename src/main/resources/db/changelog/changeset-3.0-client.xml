@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="3.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-3.1-client-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-3.2-client-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+            INSERT INTO client
+            (id, manager_id, status, tax_code, first_name, last_name, email, address, phone,  created_at,updated_at)
+            VALUES
+                (1,   2,  'ACTIVATED', '5555555551', 'Alina', 'Smith', 'alina@gmail.com','Warszawa' ,'+48777333111','2023-07-01','2023-07-01'),
+                (2,   2, 'ACTIVATED', '1111111113', 'Tom', 'Jakson', 'tom@gmail.com', 'Krakow', '+48999555666','2023-07-11', '2023-07-11'),
+                (3,   2,  'ACTIVATED', '2222222224', 'Jaklin', 'Ford', 'jaklin@gmail.com', 'Gdansk', '+48888333777','2023-07-11', '2023-07-11'),
+                (4,   3,  'ACTIVATED', '3333333335', 'Vens', 'Disel', 'vaens@gmail.com', 'Wroclaw', '+48444777222','2023-07-11', '2023-07-11'),
+                (5,   3,  'ACTIVATED', '8888888886', 'Kerry', 'Truemen', 'kerry@gmail.com', 'Poznan', '+485557333111','2023-07-11', '2023-07-11'),
+                (6,   3,  'ACTIVATED', '4444444447', 'Sara', 'Grinber', 'sarag@gmail.com', 'Wroclaw','+48999444222','2023-07-01', '2023-07-11'),
+                (7,   4,  'ACTIVATED', '7777777778', 'Tina', 'Kanson', 'tinak@gmail.com', 'Poznan','+48333555666','2023-07-11', '2023-07-11'),
+                (8,   4, 'ACTIVATED', '6666666669', 'Gretta', 'Pirson', 'grettap@gmail.com', 'Warszawa','+48111333777','2023-07-11', '2023-07-11'),
+                (9,   4,  'CLOSED', '9999999990', 'Bary', 'Wilson', 'baryw@gmail.com', 'Krakow','+48999777222', '2023-07-11', '2023-07-11'),
+                (10,   4,  'ACTIVATED', '5555555552', 'Rob', 'Wong', 'robw@gmail.com', 'Katowice','+48666444222','2023-07-11', '2023-07-11'),
+                (11,   5,  'ACTIVATED', '7777777778', 'Tina', 'Kanson', 'tinak@gmail.com', 'Warszawa', '+48111555666','2023-07-11', '2023-07-11'),
+                (12,   5,  'ACTIVATED', '6666666669', 'Gretta', 'Pirson', 'grettap@gmail.com', 'Lublin', '+4888444222','2023-07-11', '2023-07-11'),
+                (13,   5,   'CLOSED', '9999999990', 'Bary', 'Wilson', 'baryw@gmail.com', 'Warszawa', '+48222333777','2023-07-11', '2023-07-11'),
+                (14,   5,  'ACTIVATED', '5555555552', 'Robby', 'Wolf', 'roobyw@gmail.com', 'Bydgoszcz', '+48999777222','2023-07-11', '2023-07-11'),
+                (15,   5,  'CLOSED', '3333333335', 'Jak', 'Henry', 'jak@gmail.com', 'Gdansk', '+48999777222','2023-07-11', '2023-07-11');
+
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

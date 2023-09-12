@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="5.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-5.1-transaction-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-5.2-transaction-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+
+            INSERT INTO transaction
+            (id, account_id, sender, source_account,
+             beneficiary, destination_account,
+             transaction_amount, description,
+             interest_rate, transaction_type,transaction_status,transaction_code,
+             created_at,updated_at,transaction_date,effective_date)
+            VALUES
+                (1,8,  'Jaklin Ford','22000011110000333300001111',
+                 'Alina Smith','11000022220000333300002222',
+                 1000.00, 'payment for rent',
+                 0 , 'INTERNAL',  'EXECUTED','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-11','2023-07-11','2023-07-11','2023-07-11' ),
+                (2,1,  'Alina Smith','11000022220000333300002222',
+                 'Jaklin Ford','22000011110000333300001111',
+                 1000.00, 'payment for rent',
+                 0 , 'INTERNAL',  'EXECUTED','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-11', '2023-07-11', '2023-07-11', '2023-07-11' ),
+                (3,8,  'Jaklin Ford','22000011110000333300001111',
+                 'Kerry Truemen','11000066660000666600006666',
+                 150.00, 'payment for service',
+                 0 , 'INTERNAL',  'REFUSED','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-15', '2023-07-15', '2023-07-15', '2023-07-15' ),
+                (4,1,  'Alina Smith','11000022220000333300002222',
+                 'Kerry Truemen','11000066660000666600006666',
+                 50.00, 'payment for service',
+                 0 , 'INTERNAL',  'PROCESSING','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-11', '2023-07-11', '2023-07-11', '2023-07-11' ),
+                (5,1,  'Alina Smith','11000022220000333300002222',
+                 'Kerry Truemen','11000066660000666600006666',
+                 100.00, 'payment for rent',
+                 0 , 'INTERNAL',  'FUTURE_DATE','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-12','2023-07-12','2023-07-12','2023-07-12' ),
+                (6,8,  'Jaklin Ford','22000011110000333300001111',
+                 'Kerry Truemen','11000066660000666600006666',
+                 15.00, 'payment for rent',
+                 0 , 'INTERNAL',  'WAITING_AUTHORIZATION','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-15', '2023-07-15' , '2023-07-15' , '2023-07-15'  ),
+                (7,1,  'Alina Smith','11000022220000333300002222',
+                 'Kerry Truemen','11000066660000666600006666',
+                 25.00, 'payment for rent',
+                 0 , 'INTERNAL',  'AUTHORIZED_SMS','aecfd78c-a03d-494b-abef-b4dee329d774',
+                 '2023-07-11', '2023-07-11' , '2023-07-11' , '2023-07-11'  ),
+                (8,8,  'Jaklin Ford','22000011110000333300001111',
+                 'Kerry Truemen','11000066660000666600006666',
+                 30.00, 'payment for rent',
+                 0 , 'INTERNAL',  'DRAFT_VALID',null,
+                 '2023-07-12', '2023-07-12', '2023-07-12', '2023-07-12' ),
+                (9,1,  'Alina Smith','11000022220000333300002222',
+                 'Kerry Truemen','11000066660000666600006666',
+                 40.00, 'payment for rent',
+                 0 , 'INTERNAL',  'DRAFT_INVALID',null,
+                 '2023-07-15', '2023-07-15', '2023-07-15', '2023-07-15' );
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

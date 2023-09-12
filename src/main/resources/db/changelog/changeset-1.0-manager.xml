@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="1.1" author="allaborodina">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="changeset-1.1-manager-create.sql"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="changeset-1.2-manager-drop.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert" author="allaborodina">
+        <sql>
+            INSERT INTO manager
+                (id, first_name, last_name, manager_status, description, created_at)
+            VALUES
+                (1,  'Nik',     'Bred',   'ADMIN', 'description', '2023-07-11'),
+                (2,  'Barbara', 'Nikson', 'MANAGER', 'description', '2022-07-11'),
+                (3,  'Jessika', 'Parker', 'MANAGER', 'description',  '2023-07-09'),
+                (4,  'Sandra',  'Grade',  'MANAGER', 'description', '2023-07-08'),
+                (5,  'Harry',   'Frend', 'CLOSED', 'description',  '2023-07-11');
+        </sql>
+    </changeSet>
+
+
+
+</databaseChangeLog>
