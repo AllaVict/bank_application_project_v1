@@ -30,15 +30,11 @@ public class TransactionAdminRestService {
         List<TransactionReadDTO> allTransactions;
         if (!transactionRepository.findAll().isEmpty()) {
             allTransactions = transactionRepository.findAll().stream()
-                    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
-                    //.map(client ->clientReadConverter.convert(client))
                     .map(transactionReadConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is ADMIN`s accessKey
-        // throw new ValidationException("Admin rights required");
         return new FindAllTransactionsResponse(allTransactions, new ArrayList<>());
     }
 
