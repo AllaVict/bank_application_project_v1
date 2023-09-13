@@ -1,11 +1,9 @@
 package com.bank.http.restcontroller.admin;
 
 import com.bank.core.restservice.admin.ManagerAdminRestService;
-import com.bank.core.util.manager.ManagerCreateUpdateConverter;
 import com.bank.core.util.manager.ManagerReadConverter;
 import com.bank.model.dto.manager.*;
 import com.bank.model.entity.Manager;
-import com.bank.repository.ManagerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,10 +41,6 @@ class ManagerRestAdminControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private ManagerAdminRestService managerAdminRestService;
-    @MockBean
-    private ManagerRepository managerRepository;
-    @MockBean
-    private ManagerCreateUpdateConverter managerCreateUpdateConverter;
     @MockBean
     private ManagerReadConverter managerReadConverter;
 
@@ -113,8 +107,8 @@ class ManagerRestAdminControllerTest {
         when(managerReadConverter.convert(managerDorota)).thenReturn(managerReadDTODorota);
         this.mockMvc.perform(get("/api/v1/admin/managers/{id}", 6L))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName", is(managerDorota.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(managerDorota.getLastName())));
+                .andExpect(jsonPath("$.firstName", is(managerReadDTODorota.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(managerReadDTODorota.getLastName())));
 
     }
 

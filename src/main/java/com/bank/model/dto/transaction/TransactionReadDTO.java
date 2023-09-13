@@ -1,7 +1,6 @@
 package com.bank.model.dto.transaction;
 
 import com.bank.model.dto.bankaccount.BankAccountReadDTO;
-import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.enums.TransactionStatus;
 import com.bank.model.enums.TransactionType;
 import lombok.AllArgsConstructor;

@@ -6,12 +6,7 @@ import com.bank.model.dto.manager.ManagerCreateUpdateDTO;
 import com.bank.model.dto.manager.ManagerReadDTO;
 import com.bank.model.entity.Manager;
 import com.bank.repository.ManagerRepository;
-import org.junit.jupiter.api.*;
-
-import static com.bank.model.enums.ManagerStatus.CHECKING;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,14 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.bank.model.enums.ManagerStatus.CHECKING;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 //@ExtendWith(SpringExtension.class)
 class ManagerAdminRestServiceTest {
+
 
     @Mock
     private ManagerRepository managerRepository;
@@ -47,6 +44,12 @@ class ManagerAdminRestServiceTest {
     private ManagerCreateUpdateDTO managerCreateUpdateDorota;
     private Manager managerWiktor;
 
+//    @BeforeEach
+//    public void setup() {
+//        MockitoAnnotations.openMocks(this);
+//        managerAdminRestService =
+//        new ManagerAdminRestService(managerRepository, managerReadConverter, managerCreateUpdateConverter);
+//    }
 
     @BeforeEach
     void init() {
@@ -137,7 +140,7 @@ class ManagerAdminRestServiceTest {
     }
 
     @Test
-    void managerAdminService_deleteManagerById_returnVoid() {
+    void managerAdminService_deleteManagerById_returnResponse() {
         Long managerId = 6L;
         when(managerRepository.findById(anyLong())).thenReturn(Optional.of(managerDorota));
         when(managerReadConverter.convert(managerDorota)).thenReturn(managerReadDTODorota);

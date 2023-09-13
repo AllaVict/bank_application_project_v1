@@ -4,11 +4,9 @@ import com.bank.model.entity.Manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,9 +14,8 @@ import java.util.Optional;
 
 import static com.bank.model.enums.ManagerStatus.CHECKING;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -31,23 +28,22 @@ class ManagerRepositoryTest {
 
     @BeforeEach
     void init() {
+        LocalDateTime localDateTime =LocalDateTime.now();
         managerDorota = new Manager(
                 "Dorota",
                 "Dancer",
                 CHECKING,
                 "Description"
-              //  LocalDateTime.of(2023,9,1,22, 20)
-        );
+             );
 
         managerWiktor = new Manager(
                 "Wiktor",
                 "Singer",
                 CHECKING,
                 "Description"
-             //   LocalDateTime.of(2023,9,1,22,20)
-        );
-        managerDorota.setCreatedAt(LocalDateTime.now());
-        managerWiktor.setCreatedAt(LocalDateTime.now());
+         );
+        managerDorota.setCreatedAt(localDateTime);
+        managerWiktor.setCreatedAt(localDateTime);
     }
 
     @Test

@@ -3,10 +3,10 @@ package com.bank.core.util.bankaccount;
 import com.bank.core.util.Converter;
 import com.bank.core.util.client.ClientReadConverter;
 import com.bank.core.util.product.ProductReadConverter;
+import com.bank.model.dto.bankaccount.BankAccountReadDTO;
 import com.bank.model.dto.client.ClientReadDTO;
 import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.entity.BankAccount;
-import com.bank.model.dto.bankaccount.BankAccountReadDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -13,5 +13,10 @@ CREATE TABLE IF NOT EXISTS bank_account
     updated_at     datetime,
     FOREIGN KEY (client_id) REFERENCES client (id)
     ON DELETE CASCADE
-    ON UPDATE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES product (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+
     );

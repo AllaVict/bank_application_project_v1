@@ -6,7 +6,6 @@ import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.enums.BankAccountStatus;
 import com.bank.model.enums.BankAccountType;
 import com.bank.model.enums.CurrencyCode;
-import com.bank.model.enums.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 

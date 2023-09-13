@@ -5,7 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-
     <changeSet id="6.1" author="allaborodina">
         <sqlFile dbms="mysql"
                  encoding="utf8"
@@ -43,7 +42,7 @@
                 (11,    'TinaKanson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 11, '2023-07-11', '2023-07-11'),
                 (12,    'GrettaPirson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 12,'2023-07-11', '2023-07-11'),
                 (13,    'BaryWilson', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'CLIENT', 13,'2023-07-11', '2023-07-11'),
-                (14,    'robbywolf', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'ADMIN', 14,'2023-07-11', '2023-07-11'),
+                (14,    'robbywolf', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' ,'ADMIN', 3,'2023-07-11', '2023-07-11'),
                 (15,    'jakhenry', '$2a$10$IWd1mpWJfPFLou/4FZZarehk1hVSSj6cxOkK4n7haaNdQ8oe/BIJm' , 'MANAGER',15,'2023-07-11', '2023-07-11');
 
         </sql>

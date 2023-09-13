@@ -1,13 +1,13 @@
 package com.bank.model.enums;
 
 
-//import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role {// implements GrantedAuthority {
+public enum Role implements GrantedAuthority {
     ADMIN, MANAGER, CLIENT;
 
-//    @Override
-//    public String getAuthority() {
-//        return name();
-//    }
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

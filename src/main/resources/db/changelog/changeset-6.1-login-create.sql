@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS login_entity
     role       varchar(10),
     client_id  BIGINT,
     created_at datetime,
-    updated_at datetime
-    #     FOREIGN KEY (client_id) REFERENCES client (id)
-    #         ON DELETE CASCADE
-    #         ON UPDATE CASCADE
+    updated_at datetime,
+    FOREIGN KEY (client_id) REFERENCES client (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
     );

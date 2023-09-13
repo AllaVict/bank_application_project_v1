@@ -2,13 +2,9 @@ package com.bank.core.util.transaction;
 
 import com.bank.core.util.Converter;
 import com.bank.core.util.bankaccount.BankAccountReadConverter;
-import com.bank.core.util.product.ProductReadConverter;
 import com.bank.model.dto.bankaccount.BankAccountReadDTO;
-import com.bank.model.dto.manager.ManagerReadDTO;
-import com.bank.model.dto.product.ProductReadDTO;
-import com.bank.model.entity.Product;
-import com.bank.model.entity.Transaction;
 import com.bank.model.dto.transaction.TransactionReadDTO;
+import com.bank.model.entity.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

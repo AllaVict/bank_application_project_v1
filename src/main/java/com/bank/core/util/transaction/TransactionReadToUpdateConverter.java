@@ -1,8 +1,6 @@
 package com.bank.core.util.transaction;
 
 import com.bank.core.util.Converter;
-import com.bank.model.dto.product.ProductCreateUpdateDTO;
-import com.bank.model.dto.product.ProductReadDTO;
 import com.bank.model.dto.transaction.TransactionCreateUpdateDTO;
 import com.bank.model.dto.transaction.TransactionReadDTO;
 import lombok.RequiredArgsConstructor;

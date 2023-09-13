@@ -1,9 +1,12 @@
 package com.bank.core.restservice.client;
 
+import com.bank.core.restservice.LoginEntityRestService;
 import com.bank.core.util.bankaccount.BankAccountReadConverter;
+import com.bank.core.util.transaction.FindOneTransactionConverter;
 import com.bank.core.util.transaction.TransactionCreateUpdateConverter;
 import com.bank.core.util.transaction.TransactionReadConverter;
 import com.bank.core.util.transaction.TransactionReadToUpdateConverter;
+import com.bank.core.validation.CoreError;
 import com.bank.core.validation.NotFoundException;
 import com.bank.core.validation.ValidationException;
 import com.bank.model.dto.bankaccount.BankAccountReadDTO;
@@ -20,101 +23,145 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Data
 @RequiredArgsConstructor
 public class TransactionClientRestService {
 
+    private final BankAccountRepository bankAccountRepository;
+    private final BankAccountReadConverter bankAccountReadConverter;
+    private final BankAccountClientRestService bankAccountClientRestService;
+
     private final TransactionRepository transactionRepository;
     private final TransactionReadConverter transactionReadConverter;
     private final TransactionCreateUpdateConverter transactionCreateUpdateConverter;
-    private final BankAccountClientRestService bankAccountClientRestService;
-    private final BankAccountRepository bankAccountRepository;
-    private final BankAccountReadConverter bankAccountReadConverter;
     private final TransactionReadToUpdateConverter transactionReadToUpdateConverter;
+    private final FindOneTransactionConverter findOneTransactionConverter;
+    //private final Long CLIENT_ID = 3L;// = loginEntityService.getClientId();
+    private final LoginEntityRestService loginEntityRestService;
+    private Long CLIENT_ID;
 
-
-    public FindAllTransactionsResponse findAllByBankAccountId(Long bankAccountId){
-        /**
-         BankAccount bankAccount = bankAccountRepository.findById(bankAccountId)
-         ---- bankAccountRepository --> service
-         ---- BankAccount --> BankReadDTO
-
-         */
-        BankAccount bankAccount = bankAccountRepository.findById(bankAccountId)
-                .orElseThrow(() -> new NotFoundException("Bank Account not found "));
-        List<TransactionReadDTO> allTransactions;
-        if (!transactionRepository.findAllByBankAccount(bankAccount).isEmpty()) {
-            allTransactions = transactionRepository.findAll().stream()
-                    .map(transactionReadConverter::convert)
+    public FindAllTransactionsForClientResponse findAllByBankAccountId(Long bankAccountId) {
+        CLIENT_ID =loginEntityRestService.getClientId();
+        Long clientId = bankAccountRepository.findById(bankAccountId).orElseThrow().getClient().getId();
+        List<FindTransactionForClient> allTransactions;
+        if (clientId == CLIENT_ID && !transactionRepository.findAllByBankAccountId(bankAccountId).isEmpty()) {
+            allTransactions
+                    = transactionRepository.findAllByBankAccountId(bankAccountId).stream()
+                    .map(findOneTransactionConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is CLIENT`s accessKey
-        // throw new ValidationException("Admin rights required");
-        return new FindAllTransactionsResponse(allTransactions, new ArrayList<>());
+
+        return new FindAllTransactionsForClientResponse(allTransactions, new ArrayList<>());
+    }
+
+//    public Optional<TransactionReadDTO> findById(Long id) {
+//        return Optional.of(transactionRepository.findById(id)
+//                .map(transactionReadConverter::convert).orElseThrow());
+//    }
+
+    public Optional<FindTransactionForClient> findByIdAndClientId(Long id) {
+        CLIENT_ID =loginEntityRestService.getClientId();
+        Long clientId = transactionRepository.findById(id).orElseThrow()
+                .getBankAccount().getClient().getId();
+        if (clientId == CLIENT_ID) {
+            return transactionRepository.findById(id)
+                    .map(findOneTransactionConverter::convert);
+        } else {
+            throw new ValidationException("Nothing found");
+        }
+    }
+
+    public CreateUpdateTransactionForClientResponse create(TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
+        CLIENT_ID =loginEntityRestService.getClientId();
+        Long clientId = bankAccountRepository
+                .findById(transactionCreateUpdateDTO.getAccountId()).orElseThrow().getClient().getId();
+//                transactionRepository.findByBankAccountId(transactionCreateUpdateDTO.getAccountId())
+//                .orElseThrow().getBankAccount().getClient().getId();
+        FindTransactionForClient createdTransaction;
+        if (clientId == CLIENT_ID) {
+
+            transactionCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
+            String sourceAccount = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
+                    .orElseThrow().getAccountNumber();
+            transactionCreateUpdateDTO.setSourceAccount(sourceAccount);
+            String senderFirstName = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
+                    .orElseThrow().getClient().getFirstName();
+            String senderLastName = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
+                    .orElseThrow().getClient().getLastName();
+            transactionCreateUpdateDTO.setSender(senderFirstName + " " + senderLastName);
+            BigDecimal interestRate = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
+                    .orElseThrow().getProduct().getInterestRate();
+            transactionCreateUpdateDTO.setInterestRate(interestRate);
+            transactionCreateUpdateDTO.setTransactionType(TransactionType.INTERNAL);
+            transactionCreateUpdateDTO.setTransactionStatus(TransactionStatus.DRAFT_INVALID);
+            createdTransaction = Optional.of(transactionCreateUpdateDTO)
+                    .map(transactionCreateUpdateConverter::convert)
+                    .map(transactionRepository::save)
+                    .map(findOneTransactionConverter::convert)
+                    .orElseThrow();
+            return new CreateUpdateTransactionForClientResponse(createdTransaction, new ArrayList<>());
+        } else {
+            createdTransaction = Optional.of(transactionCreateUpdateDTO)
+                    .map(transactionCreateUpdateConverter::convert)
+                    .map(findOneTransactionConverter::convert)
+                    .orElseThrow();
+            CoreError coreError = new CoreError("You can not create the transaction because account number is wrong");
+            return new CreateUpdateTransactionForClientResponse(createdTransaction,
+                    new ArrayList<>(Collections.singleton(coreError)));
+        }
 
     }
 
-    public Optional<TransactionReadDTO> findById(Long id) {
-        return  transactionRepository.findById(id)// findById(ID id) return Optional<T>
-                //<U> Optional<U> map(Function<? super T, ? extends U> mapper)
-                // .map(transaction -> transactionReadConverter.convert(transaction))
-                .map(transactionReadConverter::convert); // client -> clientReadDTO
-    }
-
-    public CreateUpdateTransactionResponse create(TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
-        transactionCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
-        String sourceAccount = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
-                .orElseThrow().getAccountNumber();
-       transactionCreateUpdateDTO.setSourceAccount(sourceAccount);
-        String senderFirstName = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
-                .orElseThrow().getClient().getFirstName();
-        String senderLastName = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
-                .orElseThrow().getClient().getLastName();
-        transactionCreateUpdateDTO.setSender(senderFirstName +" "+senderLastName);
-        BigDecimal interestRate = bankAccountClientRestService.findById(transactionCreateUpdateDTO.getAccountId())
-                .orElseThrow().getProduct().getInterestRate();
-        transactionCreateUpdateDTO.setInterestRate(interestRate);
-        transactionCreateUpdateDTO.setTransactionType(TransactionType.INTERNAL);
-        transactionCreateUpdateDTO.setTransactionStatus(TransactionStatus.DRAFT_INVALID);
-
-        TransactionReadDTO transactionReadDTO= Optional.of(transactionCreateUpdateDTO)
-                .map(transactionCreateUpdateConverter::convert)//TransactionCreateConverter  TransactionCreateDTO ->Transaction
-                .map(transactionRepository::save)   // .map(Transaction -> TransactionRepository.save(Transaction))
-                .map(transactionReadConverter::convert) //TransactionReadConverter  Transaction -> TransactionReadDTO
-                .orElseThrow();
-        return new CreateUpdateTransactionResponse(transactionReadDTO, new ArrayList<>());
-    }
-
-
-    public CreateUpdateTransactionResponse update(Long id, TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
+    public CreateUpdateTransactionForClientResponse update(Long id, TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
+        CLIENT_ID =loginEntityRestService.getClientId();
         Optional<Transaction> transactionForUpdate = Optional.ofNullable(transactionRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Transaction not found")));
+        TransactionStatus transactionStatus = transactionForUpdate.orElseThrow().getTransactionStatus();
+        Long clientId = bankAccountRepository
+                .findById(transactionCreateUpdateDTO.getAccountId()).orElseThrow().getClient().getId();
+       // Long clientId = transactionRepository.findByBankAccountId(transactionCreateUpdateDTO.getAccountId())
+       //         .orElseThrow().getBankAccount().getClient().getId();
 
-        transactionCreateUpdateDTO.setSourceAccount(transactionForUpdate.get().getSourceAccount());
-        transactionCreateUpdateDTO.setSender(transactionForUpdate.get().getSender());
-        transactionCreateUpdateDTO.setInterestRate(transactionForUpdate.get().getInterestRate());
-        transactionCreateUpdateDTO.setTransactionType(transactionForUpdate.get().getTransactionType());
-        transactionCreateUpdateDTO.setTransactionStatus(transactionForUpdate.get().getTransactionStatus());
-        transactionCreateUpdateDTO.setCreatedAt(transactionForUpdate.get().getCreatedAt());
-        transactionCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
+        if (clientId == CLIENT_ID) {
 
-        return new CreateUpdateTransactionResponse(
-                transactionForUpdate.map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))
-                        .map(transactionRepository::saveAndFlush) // save transactionCreateUpdateDTO
-                        .map(transactionReadConverter::convert).orElseThrow()  // transaction -> transactionReadDTO
-                , new ArrayList<>());
+            if (transactionStatus == TransactionStatus.DRAFT_INVALID
+                    || transactionStatus == TransactionStatus.DRAFT_VALID) {
+                transactionCreateUpdateDTO.setCreatedAt(transactionForUpdate.get().getCreatedAt());
+                transactionCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
+                transactionCreateUpdateDTO.setTransactionType(transactionForUpdate.get().getTransactionType());
+                transactionCreateUpdateDTO.setTransactionStatus(transactionForUpdate.get().getTransactionStatus());
+                return new CreateUpdateTransactionForClientResponse(
+                        transactionForUpdate.map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))
+                                .map(transactionRepository::saveAndFlush)
+                                .map(findOneTransactionConverter::convert)
+                                .orElseThrow(), new ArrayList<>());
+            } else {
+                CoreError coreError = new CoreError("You can not update the processing or executing transact");
+                return new CreateUpdateTransactionForClientResponse(
+                        transactionForUpdate.map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))
+                                .map(findOneTransactionConverter::convert)
+                                .orElseThrow()
+                        , new ArrayList<>(Collections.singleton(coreError)));
+            }
+
+        } else {
+            CoreError coreError = new CoreError("You can not create the transaction because account number is wrong");
+            return new CreateUpdateTransactionForClientResponse(
+                    transactionForUpdate.map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))
+                            .map(findOneTransactionConverter::convert)
+                            .orElseThrow()
+                    , new ArrayList<>(Collections.singleton(coreError)));
+        }
+
     }
 
-    public AuthorizeTransactionResponse authorize(Long transactionId){
-        TransactionCreateUpdateDTO transactionForAuthorize =transactionRepository.findById(transactionId)
+    public AuthorizeTransactionResponse authorize(Long transactionId) {
+        TransactionCreateUpdateDTO transactionForAuthorize = transactionRepository.findById(transactionId)
                 .map(transactionReadConverter::convert)
                 .map(transactionReadToUpdateConverter::convert)
                 .orElseThrow(() -> new ValidationException("Transaction not found"));
@@ -122,13 +169,11 @@ public class TransactionClientRestService {
         //validating account balances
         validateBalance(transactionForAuthorize.getSourceAccount(), transactionForAuthorize.getTransactionAmount());
         // execute transaction
-        TransactionReadDTO transactionReadDTO=
-
-        executeInternalTransaction(transactionForAuthorize,
-                 transactionForAuthorize.getSourceAccount(),
-                transactionForAuthorize.getDestinationAccount(),
-                transactionForAuthorize.getTransactionAmount());
-
+        TransactionReadDTO transactionReadDTO =
+                executeInternalTransaction(transactionForAuthorize,
+                        transactionForAuthorize.getSourceAccount(),
+                        transactionForAuthorize.getDestinationAccount(),
+                        transactionForAuthorize.getTransactionAmount());
         return new AuthorizeTransactionResponse(
                 transactionReadDTO,
                 "Transaction successfully completed",
@@ -136,10 +181,10 @@ public class TransactionClientRestService {
     }
 
     public TransactionReadDTO executeInternalTransaction(TransactionCreateUpdateDTO transactionForAuthorize,
-                                                         String fromAccountNumber, String toAccountNumber, BigDecimal amount){
-        BankAccount fromBankAccount =bankAccountRepository.findByAccountNumber(fromAccountNumber)
+                                                         String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
+        BankAccount fromBankAccount = bankAccountRepository.findByAccountNumber(fromAccountNumber)
                 .orElseThrow(() -> new NotFoundException("Bank Account not found "));
-        BankAccount toBankAccount =bankAccountRepository.findByAccountNumber(toAccountNumber)
+        BankAccount toBankAccount = bankAccountRepository.findByAccountNumber(toAccountNumber)
                 .orElseThrow(() -> new NotFoundException("Bank Account not found "));
 
         transactionForAuthorize.setTransactionDate(LocalDateTime.now());
@@ -149,45 +194,39 @@ public class TransactionClientRestService {
         transactionForAuthorize.setTransactionCode(transactionCode);
 
         //  execute transaction fromBankAccount == sourceAccount  .amount(amount.negate())
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! BEFOR fromBankAccount"+fromBankAccount.getBalance());
         fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
         bankAccountRepository.save(fromBankAccount);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! AFTER fromBankAccount"+fromBankAccount.getBalance());
-
         TransactionReadDTO transactionReadDTO = Optional.of(transactionForAuthorize)
                 .map(transactionCreateUpdateConverter::convert)
                 .map(transactionRepository::saveAndFlush)
                 .map(transactionReadConverter::convert).orElseThrow();
 
-
-       //  execute transaction toBankAccount == sourceAccount  .amount(amount)
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! BEFOR toBankAccount"+toBankAccount.getBalance());
+        //  execute transaction toBankAccount == sourceAccount  .amount(amount)
         toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
         bankAccountRepository.save(toBankAccount);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! AFTER toBankAccount"+toBankAccount.getBalance());
         TransactionCreateUpdateDTO transactionToAccount = Optional.of(transactionReadDTO)
-        .map(transactionReadToUpdateConverter::convert)
-        .orElseThrow();
+                .map(transactionReadToUpdateConverter::convert)
+                .orElseThrow();
         this.createTransactionToAccount(transactionToAccount);
-
 
         return transactionReadDTO;
 
     }
+
     public CreateUpdateTransactionResponse createTransactionToAccount(
             TransactionCreateUpdateDTO transactionCreateUpdateDTO) {
 
         Long toAccountId = bankAccountClientRestService.findByAccountNumber
-                  (transactionCreateUpdateDTO.getDestinationAccount()).orElseThrow().getId();
-       BankAccount toAccount = bankAccountRepository.findById(toAccountId).orElseThrow();
-       BigDecimal interestRate = toAccount.getProduct().getInterestRate();
+                (transactionCreateUpdateDTO.getDestinationAccount()).orElseThrow().getId();
+        BankAccount toAccount = bankAccountRepository.findById(toAccountId).orElseThrow();
+        BigDecimal interestRate = toAccount.getProduct().getInterestRate();
 
-       Transaction transactionToAccount = new Transaction();
-       transactionToAccount.setBankAccount(toAccount);
-       transactionToAccount.setSender(transactionCreateUpdateDTO.getBeneficiary() );
-       transactionToAccount.setSourceAccount(transactionCreateUpdateDTO.getDestinationAccount());
+        Transaction transactionToAccount = new Transaction();
+        transactionToAccount.setBankAccount(toAccount);
+        transactionToAccount.setSender(transactionCreateUpdateDTO.getBeneficiary());
+        transactionToAccount.setSourceAccount(transactionCreateUpdateDTO.getDestinationAccount());
         transactionToAccount.setBeneficiary(transactionCreateUpdateDTO.getSender());
-        transactionToAccount.setDestinationAccount(transactionCreateUpdateDTO.getSourceAccount() );
+        transactionToAccount.setDestinationAccount(transactionCreateUpdateDTO.getSourceAccount());
         transactionToAccount.setTransactionAmount(transactionCreateUpdateDTO.getTransactionAmount());
         transactionToAccount.setDescription(transactionCreateUpdateDTO.getDescription());
         transactionToAccount.setInterestRate(interestRate);
@@ -199,8 +238,8 @@ public class TransactionClientRestService {
         transactionToAccount.setTransactionDate(LocalDateTime.now());
         transactionToAccount.setEffectiveDate(LocalDateTime.now());
 
-        TransactionReadDTO transactionReadDTO= Optional.of(transactionToAccount)
-                 .map(transactionRepository::save)   // .map(Transaction -> TransactionRepository.save(Transaction))
+        TransactionReadDTO transactionReadDTO = Optional.of(transactionToAccount)
+                .map(transactionRepository::save)   // .map(Transaction -> TransactionRepository.save(Transaction))
                 .map(transactionReadConverter::convert) //TransactionReadConverter  Transaction -> TransactionReadDTO
                 .orElseThrow();
         return new CreateUpdateTransactionResponse(transactionReadDTO, new ArrayList<>());
@@ -209,28 +248,38 @@ public class TransactionClientRestService {
 
     private void validateBalance(String accountNumber, BigDecimal amount) {
 
-        BankAccountReadDTO bankAccount= bankAccountClientRestService.findByAccountNumber(accountNumber)
+        BankAccountReadDTO bankAccount = bankAccountClientRestService.findByAccountNumber(accountNumber)
                 .orElseThrow();
         if (bankAccount.getBalance().compareTo(BigDecimal.ZERO) < 0
                 || bankAccount.getBalance().compareTo(amount) < 0) {
-                throw new RuntimeException("not enough money ");
+            throw new RuntimeException("not enough money ");
         }
     }
 
 
-
-    public DeleteTransactionResponse delete(Long request){
-        Transaction clientForDelete =  transactionRepository.findById(request)
+    public DeleteTransactionForClientResponse delete(Long request) {
+        CLIENT_ID =loginEntityRestService.getClientId();
+        Long clientId = transactionRepository.findById(request).orElseThrow()
+                .getBankAccount().getClient().getId();
+        Transaction clientForDelete = transactionRepository.findById(request)
                 .orElseThrow(() -> new ValidationException("Transaction not found"));
-        transactionRepository.delete(clientForDelete);
-        return new DeleteTransactionResponse(transactionReadConverter.convert(clientForDelete), new ArrayList<>());
+        TransactionStatus transactionStatus = transactionRepository.findById(request)
+                .orElseThrow().getTransactionStatus();
 
-    }
+        if (clientId == CLIENT_ID) {
+            if (transactionStatus == TransactionStatus.DRAFT_INVALID
+                    || transactionStatus == TransactionStatus.DRAFT_VALID) {
+                transactionRepository.delete(clientForDelete);
+                return new DeleteTransactionForClientResponse(findOneTransactionConverter.convert(clientForDelete), new ArrayList<>());
+            } else {
+                CoreError coreError = new CoreError("You can not delete the processing or executing transaction");
+                return new DeleteTransactionForClientResponse(findOneTransactionConverter.convert(clientForDelete)
+                        , new ArrayList<>(Collections.singleton(coreError)));
+            }
+        } else {
+            throw new ValidationException("Nothing found");
+        }
 
-    private TransactionStatus getTransactionStatus(Long id){
-        return transactionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Can not found the transaction "))
-                .getTransactionStatus();
     }
 
 }
