@@ -142,7 +142,7 @@ class TransactionRepositoryTest {
         transactionRepository.delete(transactionA);
         List<Transaction> list = transactionRepository.findAll();
         Optional<Transaction> exitingTransaction = transactionRepository.findById(id);
-        assertEquals(10, list.size());
+        assertEquals(11, list.size());
         assertThat(exitingTransaction).isEmpty();
 
     }

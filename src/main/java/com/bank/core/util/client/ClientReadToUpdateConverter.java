@@ -23,8 +23,6 @@ public class ClientReadToUpdateConverter implements Converter<ClientReadDTO, Cli
                 clientReadDTO.getEmail(),
                 clientReadDTO.getAddress(),
                 clientReadDTO.getPhone(),
-//                clientReadDTO.getPassword(),
-//                clientReadDTO.getRole(),
                 clientReadDTO.getCreatedAt(),
                 clientReadDTO.getUpdatedAt()
 

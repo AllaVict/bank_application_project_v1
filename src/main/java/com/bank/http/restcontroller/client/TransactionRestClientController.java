@@ -37,7 +37,7 @@ public class TransactionRestClientController {
     }
 
     /**
-     * GET   http://localhost:8080/api/v1/client/transacts/transact/1
+     GET   http://localhost:8080/api/v1/client/transacts/transact/1
      */
     @GetMapping("/transact/{id}")
     public FindTransactionForClient findByIdTransaction(@PathVariable("id") Long id) {
@@ -86,7 +86,7 @@ public class TransactionRestClientController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    /**      Put   http://localhost:8080/api/v1/client/transacts/transact/auth/5
+    /**      POST   http://localhost:8080/api/v1/client/transacts/transact/auth/5
      {
      "id": "5",
      "clientId": "1",
@@ -98,7 +98,7 @@ public class TransactionRestClientController {
      }
      */
 
-    @PutMapping("/transact/auth/{id}")
+    @PostMapping("/transact/auth/{id}")
     public ResponseEntity<AuthorizeTransactionResponse> authorize(@PathVariable("id") Long id){
         FindTransactionForClient transactionDTO = transactionClientRestService.findByIdAndClientId(id)
                         .orElseThrow();

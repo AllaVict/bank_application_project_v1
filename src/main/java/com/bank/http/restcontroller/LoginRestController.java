@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api/auth")
 public class LoginRestController {
     // @Autowired
    private AuthenticationManager authenticationManager;

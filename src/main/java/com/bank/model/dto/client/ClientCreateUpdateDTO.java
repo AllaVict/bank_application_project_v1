@@ -12,10 +12,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/** @Value is the immutable variant of @Data ;
- all fields are made private and final by default, and setters are not generated.
- */
-//@Value
 @Data
 @AllArgsConstructor
 public class ClientCreateUpdateDTO {

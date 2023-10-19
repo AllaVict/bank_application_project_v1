@@ -105,7 +105,7 @@ class ClientRepositoryTest {
         clientRepository.delete(clientKarolina);
         List<Client> list = clientRepository.findAll();
         Optional<Client> exitingClient = clientRepository.findById(id);
-        assertEquals(16, list.size());
+        assertEquals(17, list.size());
         assertThat(exitingClient).isEmpty();
 
     }

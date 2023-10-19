@@ -39,7 +39,6 @@ public class TransactionClientRestService {
     private final TransactionCreateUpdateConverter transactionCreateUpdateConverter;
     private final TransactionReadToUpdateConverter transactionReadToUpdateConverter;
     private final FindOneTransactionConverter findOneTransactionConverter;
-    //private final Long CLIENT_ID = 3L;// = loginEntityService.getClientId();
     private final LoginEntityRestService loginEntityRestService;
     private Long CLIENT_ID;
 
@@ -80,8 +79,6 @@ public class TransactionClientRestService {
         CLIENT_ID =loginEntityRestService.getClientId();
         Long clientId = bankAccountRepository
                 .findById(transactionCreateUpdateDTO.getAccountId()).orElseThrow().getClient().getId();
-//                transactionRepository.findByBankAccountId(transactionCreateUpdateDTO.getAccountId())
-//                .orElseThrow().getBankAccount().getClient().getId();
         FindTransactionForClient createdTransaction;
         if (clientId == CLIENT_ID) {
 
@@ -124,8 +121,6 @@ public class TransactionClientRestService {
         TransactionStatus transactionStatus = transactionForUpdate.orElseThrow().getTransactionStatus();
         Long clientId = bankAccountRepository
                 .findById(transactionCreateUpdateDTO.getAccountId()).orElseThrow().getClient().getId();
-       // Long clientId = transactionRepository.findByBankAccountId(transactionCreateUpdateDTO.getAccountId())
-       //         .orElseThrow().getBankAccount().getClient().getId();
 
         if (clientId == CLIENT_ID) {
 
@@ -239,8 +234,8 @@ public class TransactionClientRestService {
         transactionToAccount.setEffectiveDate(LocalDateTime.now());
 
         TransactionReadDTO transactionReadDTO = Optional.of(transactionToAccount)
-                .map(transactionRepository::save)   // .map(Transaction -> TransactionRepository.save(Transaction))
-                .map(transactionReadConverter::convert) //TransactionReadConverter  Transaction -> TransactionReadDTO
+                .map(transactionRepository::save)
+                .map(transactionReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateTransactionResponse(transactionReadDTO, new ArrayList<>());
     }

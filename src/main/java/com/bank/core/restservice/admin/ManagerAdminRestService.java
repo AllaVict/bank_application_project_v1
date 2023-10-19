@@ -30,15 +30,11 @@ public class ManagerAdminRestService {
         List<ManagerReadDTO> allManagers;
         if (!managerRepository.findAll().isEmpty()) {
            allManagers = managerRepository.findAll().stream()
-                    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
-                    //.map(manager ->managerReadConverter.convert(manager))
-                    .map(managerReadConverter::convert)
+                     .map(managerReadConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is ADMIN`s accessKey
-        // throw new ValidationException("Admin rights required");
         return new FindAllManagersResponse(allManagers, new ArrayList<>());
     }
 
@@ -55,9 +51,9 @@ public class ManagerAdminRestService {
     public CreateUpdateManagerResponse create(ManagerCreateUpdateDTO managerCreateUpdateDTO) {
         managerCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         ManagerReadDTO managerReadDTO= Optional.of(managerCreateUpdateDTO)
-                .map(managerCreateUpdateConverter::convert)//productCreateConverter  managerCreateDTO ->Manager
-                .map(managerRepository::save)   // .map(product -> productRepository.save(product))
-                .map(managerReadConverter::convert) //productReadConverter  Product -> ProductReadDTO
+                .map(managerCreateUpdateConverter::convert)
+                .map(managerRepository::save)
+                .map(managerReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateManagerResponse(managerReadDTO, new ArrayList<>());
     }
@@ -68,8 +64,8 @@ public class ManagerAdminRestService {
         managerCreateUpdateDTO.setCreatedAt(managerForUpdate.get().getCreatedAt());
         return new CreateUpdateManagerResponse(
                 managerForUpdate.map(manager -> managerCreateUpdateConverter.convert(managerCreateUpdateDTO, manager))
-                        .map(managerRepository::saveAndFlush) // save managerCreateUpdateDTO
-                        .map(managerReadConverter::convert).orElseThrow()  // ProduManagert -> managerReadDTO
+                        .map(managerRepository::saveAndFlush)
+                        .map(managerReadConverter::convert).orElseThrow()
                 , new ArrayList<>());
     }
 

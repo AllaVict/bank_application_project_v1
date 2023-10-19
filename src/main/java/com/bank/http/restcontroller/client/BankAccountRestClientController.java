@@ -45,6 +45,15 @@ public class BankAccountRestClientController {
 
     }
 
+    /**
+     GET   http://localhost:8080/api/v1/client/bankAccounts/balance/{id}
+     */
+//    @GetMapping("/bankAccounts/balance/{id}")
+//    public String getBalanceById(@PathVariable("id") Long id) {
+//        log.info("Reading bankAccount Balance by id " +id);
+//        return String.valueOf(bankAccountClientRestService.getBalanceById(id));
+//
+//    }
 
 
 }

@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +35,11 @@ public class BankAccountAdminRestService {
         List<BankAccountReadDTO> allBankAccounts;
         if (!bankAccountRepository.findAll().isEmpty()) {
             allBankAccounts = bankAccountRepository.findAll().stream()
-                    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
-                    //.map(bankAccount ->bankAccountReadConverter.convert(bankAccount))
-                    .map(bankAccountReadConverter::convert)
+                   .map(bankAccountReadConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is ADMIN`s accessKey
-        // throw new ValidationException("Admin rights required");
         return new FindAllBankAccountsResponse(allBankAccounts, new ArrayList<>());
     }
 
@@ -51,13 +48,17 @@ public class BankAccountAdminRestService {
         return Optional.of(bankAccountRepository.findById(id)
                 .map(bankAccountReadConverter::convert).orElseThrow());
     }
+//    public BigDecimal getBalanceById(Long id) {
+//        return bankAccountRepository.findById(id).orElseThrow().getBalance();
+//
+//    }
 
     public CreateUpdateBankAccountResponse create(BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO) {
         bankAccountCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         BankAccountReadDTO bankAccountReadDTO= Optional.of(bankAccountCreateUpdateDTO)
-                .map(bankAccountCreateUpdateConverter::convert)//BankAccountCreateConverter  BankAccountCreateDTO ->BankAccount
-                .map(bankAccountRepository::save)   // .map(BankAccount -> BankAccountRepository.save(BankAccount))
-                .map(bankAccountReadConverter::convert) //BankAccountReadConverter  BankAccount -> BankAccountReadDTO
+                .map(bankAccountCreateUpdateConverter::convert)
+                .map(bankAccountRepository::save)
+                .map(bankAccountReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateBankAccountResponse(bankAccountReadDTO, new ArrayList<>());
     }
@@ -65,13 +66,13 @@ public class BankAccountAdminRestService {
     public CreateUpdateBankAccountResponse update(Long id, BankAccountCreateUpdateDTO bankAccountCreateUpdateDTO) {
         Optional<BankAccount> bankAccountForUpdate = Optional.ofNullable(bankAccountRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("BankAccount not found")));
-        //bankAccountCreateUpdateDTO.setBankAccountType(bankAccountForUpdate.get().getAccountType());
+
         bankAccountCreateUpdateDTO.setCreatedAt(bankAccountForUpdate.get().getCreatedAt());
         bankAccountCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
         return new CreateUpdateBankAccountResponse(
                 bankAccountForUpdate.map(bankAccount -> bankAccountCreateUpdateConverter.convert(bankAccountCreateUpdateDTO, bankAccount))
-                        .map(bankAccountRepository::saveAndFlush) // save bankAccountCreateUpdateDTO
-                        .map(bankAccountReadConverter::convert).orElseThrow()  // bankAccount -> bankAccountReadDTO
+                        .map(bankAccountRepository::saveAndFlush)
+                        .map(bankAccountReadConverter::convert).orElseThrow()
                 , new ArrayList<>());
     }
 

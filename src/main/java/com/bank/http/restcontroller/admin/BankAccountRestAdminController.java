@@ -47,6 +47,17 @@ public class BankAccountRestAdminController {
         return BankAccountAdminRestService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+    /**
+     GET   http://localhost:8080/api/v1/admin/bankAccounts/balance/{id}
+     */
+//    @GetMapping("/bankAccounts/balance/{id}")
+//    public String getBalanceById(@PathVariable("id") Long id) {
+//        log.info("Reading bankAccount Balance by id " +id);
+//        return String.valueOf(BankAccountAdminRestService.getBalanceById(id));
+//
+//    }
+
     /**
      Post    http://localhost:8080/api/v1/admin/bankAccounts
 

@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoginEntityRestService implements UserDetailsService {
 
-    //@Autowired
     private LoginEntityRepository loginEntityRepository;
 
     private final LoginEntityReadConverter loginEntityReadConverter;

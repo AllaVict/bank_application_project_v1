@@ -49,9 +49,9 @@ public class TransactionAdminRestService {
         transactionCreateUpdateDTO.setTransactionType(TransactionType.INTERNAL);
         transactionCreateUpdateDTO.setTransactionStatus(TransactionStatus.DRAFT_INVALID);
          TransactionReadDTO transactionReadDTO= Optional.of(transactionCreateUpdateDTO)
-                .map(transactionCreateUpdateConverter::convert)//TransactionCreateConverter  TransactionCreateDTO ->Transaction
-                .map(transactionRepository::save)   // .map(Transaction -> TransactionRepository.save(Transaction))
-                .map(transactionReadConverter::convert) //TransactionReadConverter  Transaction -> TransactionReadDTO
+                .map(transactionCreateUpdateConverter::convert)
+                .map(transactionRepository::save)
+                .map(transactionReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateTransactionResponse(transactionReadDTO, new ArrayList<>());
     }
@@ -65,8 +65,8 @@ public class TransactionAdminRestService {
         transactionCreateUpdateDTO.setTransactionStatus(transactionForUpdate.get().getTransactionStatus());
         return new CreateUpdateTransactionResponse(
                 transactionForUpdate.map(transaction -> transactionCreateUpdateConverter.convert(transactionCreateUpdateDTO, transaction))
-                        .map(transactionRepository::saveAndFlush) // save transactionCreateUpdateDTO
-                        .map(transactionReadConverter::convert).orElseThrow()  // transaction -> transactionReadDTO
+                        .map(transactionRepository::saveAndFlush)
+                        .map(transactionReadConverter::convert).orElseThrow()
                 , new ArrayList<>());
     }
 

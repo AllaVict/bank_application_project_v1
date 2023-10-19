@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                   .authenticationProvider(daoAuthenticationProvider())
                    .authorizeHttpRequests(authorize -> authorize
                           .requestMatchers("/home","/login","/logout","swagger-ui/**", "/login-app/**").permitAll()
-                           .requestMatchers("/api/v1/admin/**").hasAuthority(ADMIN.getAuthority())
+                          .requestMatchers("/api/v1/admin/**").hasAuthority(ADMIN.getAuthority())
                           .requestMatchers("/api/v1/client/**","/home-client").hasAuthority(CLIENT.getAuthority())
                           .requestMatchers("/api/v1/manager/**","/home-manager").hasAuthority(MANAGER.getAuthority())
                           .anyRequest().authenticated()

@@ -29,15 +29,11 @@ public class ProductAdminRestService {
         List<ProductReadDTO> allProducts;
         if (!productRepository.findAll().isEmpty()) {
            allProducts = productRepository.findAll().stream()
-                    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
-                    //.map(product ->productReadConverter.convert(product))
                     .map(productReadConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is ADMIN`s accessKey
-        // throw new ValidationException("Admin rights required");
         return new FindAllProductsResponse(allProducts, new ArrayList<>());
     }
 
@@ -49,9 +45,9 @@ public class ProductAdminRestService {
     public CreateUpdateProductResponse create(ProductCreateUpdateDTO productCreateUpdateDTO) {
         productCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         ProductReadDTO productReadDTO= Optional.of(productCreateUpdateDTO)
-                .map(productCreateUpdateConverter::convert)//productCreateConverter  managerCreateDTO ->Manager
-                .map(productRepository::save)   // .map(product -> productRepository.save(product))
-                .map(productReadConverter::convert) //productReadConverter  Product -> ProductReadDTO
+                .map(productCreateUpdateConverter::convert)
+                .map(productRepository::save)
+                .map(productReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateProductResponse(productReadDTO, new ArrayList<>());
     }
@@ -63,8 +59,8 @@ public class ProductAdminRestService {
         productCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
         return new CreateUpdateProductResponse(
                 productForUpdate.map(product -> productCreateUpdateConverter.convert(productCreateUpdateDTO, product))
-                        .map(productRepository::saveAndFlush) // save productCreateDTO
-                        .map(productReadConverter::convert).orElseThrow()  // Product -> ProductReadDTO
+                        .map(productRepository::saveAndFlush)
+                        .map(productReadConverter::convert).orElseThrow()
                 , new ArrayList<>());
     }
 

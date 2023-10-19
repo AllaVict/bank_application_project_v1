@@ -33,8 +33,6 @@ public class ClientReadConverter implements Converter<Client, ClientReadDTO> {
                 client.getEmail(),
                 client.getAddress(),
                 client.getPhone(),
-//                client.getPassword(),
-//                client.getRole(),
                 client.getCreatedAt(),
                 client.getUpdatedAt()
         );

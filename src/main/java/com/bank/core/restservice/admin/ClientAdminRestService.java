@@ -29,15 +29,11 @@ public class ClientAdminRestService {
         List<ClientReadDTO> allClients;
         if (!clientRepository.findAll().isEmpty()) {
             allClients = clientRepository.findAll().stream()
-                    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
-                    //.map(client ->clientReadConverter.convert(client))
                     .map(clientReadConverter::convert)
                     .toList();
         } else {
             throw new ValidationException("Nothing found");
         }
-        // if accessKey is ADMIN`s accessKey
-        // throw new ValidationException("Admin rights required");
         return new FindAllClientsResponse(allClients, new ArrayList<>());
     }
 
@@ -49,9 +45,9 @@ public class ClientAdminRestService {
     public CreateUpdateClientResponse create(ClientCreateUpdateDTO clientCreateUpdateDTO) {
         clientCreateUpdateDTO.setCreatedAt(LocalDateTime.now());
         ClientReadDTO clientReadDTO= Optional.of(clientCreateUpdateDTO)
-                .map(clientCreateUpdateConverter::convert)//ClientCreateConverter  ClientCreateDTO ->Client
-                .map(clientRepository::save)   // .map(Client -> ClientRepository.save(Client))
-                .map(clientReadConverter::convert) //ClientReadConverter  Client -> ClientReadDTO
+                .map(clientCreateUpdateConverter::convert)
+                .map(clientRepository::save)
+                .map(clientReadConverter::convert)
                 .orElseThrow();
         return new CreateUpdateClientResponse(clientReadDTO, new ArrayList<>());
     }
@@ -63,8 +59,8 @@ public class ClientAdminRestService {
         clientCreateUpdateDTO.setUpdatedAt(LocalDateTime.now());
         return new CreateUpdateClientResponse(
                 clientForUpdate.map(client -> clientCreateUpdateConverter.convert(clientCreateUpdateDTO, client))
-                        .map(clientRepository::saveAndFlush) // save clientCreateUpdateDTO
-                        .map(clientReadConverter::convert).orElseThrow()  // client -> clientReadDTO
+                        .map(clientRepository::saveAndFlush)
+                        .map(clientReadConverter::convert).orElseThrow()
                 , new ArrayList<>());
     }
 

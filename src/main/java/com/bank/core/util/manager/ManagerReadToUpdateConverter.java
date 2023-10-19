@@ -18,9 +18,6 @@ public class ManagerReadToUpdateConverter implements Converter<ManagerReadDTO, M
                 managerReadDTO.getLastName(),
                 managerReadDTO.getManagerStatus(),
                 managerReadDTO.getDescription(),
-//                managerReadDTO.getUsername(),
-//                managerReadDTO.getPassword(),
-//                managerReadDTO.getRole(),
                 managerReadDTO.getCreatedAt()
 
         );

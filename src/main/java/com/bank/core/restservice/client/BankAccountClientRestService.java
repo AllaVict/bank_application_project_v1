@@ -18,6 +18,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class BankAccountClientRestService {
     private final FindOneBankAccountConverter findOneBankAccountConverter;
     private final LoginEntityRestService loginEntityRestService;
     private Long CLIENT_ID;
-   // private final Long CLIENT_ID=3L;// = loginEntityService.getClientId();
+
     public FindAllBankAccountsForClientResponse findAllBankAccountByClientId() {
         CLIENT_ID =loginEntityRestService.getClientId();
         Client client =  clientRepository.findById(CLIENT_ID)
@@ -56,6 +57,13 @@ public class BankAccountClientRestService {
         return bankAccountRepository.findByIdAndClientId(id, CLIENT_ID)
                 .map(findOneBankAccountConverter::convert);
     }
+
+//        public BigDecimal getBalanceById(Long id) {
+//        CLIENT_ID =loginEntityRestService.getClientId();
+//        return bankAccountRepository.findByIdAndClientId(id, CLIENT_ID).orElseThrow().getBalance();
+//
+//    }
+
     Optional<BankAccountReadDTO> findByAccountNumber(String accountNumber){
         return Optional.of(bankAccountRepository.findByAccountNumber(accountNumber)
                 .map(bankAccountReadConverter::convert)
@@ -67,6 +75,7 @@ public class BankAccountClientRestService {
                 .map(bankAccountReadConverter::convert)
                 .orElseThrow(() -> new NotFoundException("Bank Account not found ")));
     }
+
 
 
 }
